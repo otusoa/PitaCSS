@@ -1,0 +1,104 @@
+:root {
+	/* フォントの種類 */
+	--normalFontFamily: "BIZ UDPGothic", "Yu Gothic Medium", "YuGothic",
+		"ヒラギノ角ゴシック", "system-ui";
+
+	--mainColor: #b8fb97;
+	--subColor: #4d663e;
+	--darkColor100: #222;
+
+	--grayColor100: #333;
+	--grayColor200: #444;
+	--grayColor300: #555;
+
+	--grayColor1000: #eceff1;
+	--grayColor2000: #e5e7eb;
+	--whiteColor: #fff;
+
+	--linkColor: #1570d4;
+	--linkColorActive: #7d7d7d96;
+	--linkColorVisited: #a15ccc;
+
+	/*大きさ(上から小さい順)*/
+	--fontSize13px: 13px;
+	--fontSize15px: 15px;
+	--smallFontSize: clamp(15px, 1.95vw, 17px);
+	--standardFontSize: clamp(16px, 2.08vw, 18px);
+	--smallMediumFontSize: clamp(20px, 2.604vw, 25px);
+	--mediumFontSize: clamp(23px, 2.99vw, 30px);
+	--largeFontSize: clamp(30px, 3.89vw, 40px);
+
+	--softShadow: 0px 4px 5px -3px rgba(0, 0, 0, 0.3),
+		-1px -3px 5px -3px rgba(0, 0, 0, 0.25);
+	--standardShadow: 0px 2px 10px -3px rgba(0, 0, 0, 0.3);
+}
+
+.mainColor {
+	color: var(--mainColor);
+}
+
+.subColor {
+	color: var(--subColor);
+}
+
+.darkColor100 {
+	color: var(--darkColor100);
+}
+
+.grayColor100 {
+	color: var(--grayColor100);
+}
+
+.grayColor200 {
+	color: var(--grayColor200);
+}
+
+.grayColor300 {
+	color: var(--grayColor300);
+}
+
+.grayColor1000 {
+	color: var(--grayColor1000);
+}
+
+.grayColor2000 {
+	color: var(--grayColor2000);
+}
+
+.whiteColor {
+	color: var(--whiteColor);
+}
+
+/* フォントサイズ */
+
+.fontSize13px {
+	font-size: var(--fontSize13px);
+}
+
+.fontSize15px {
+	font-size: var(--fontSize15px);
+}
+
+.smallFontSize {
+	font-size: var(--smallFontSize);
+}
+
+.standardFontSize {
+	font-size: var(--standardFontSize);
+}
+
+.smallMediumFontSize {
+	font-size: var(--smallMediumFontSize);
+}
+
+.mediumFontSize {
+	font-size: var(--mediumFontSize);
+}
+
+.largeFontSize {
+	font-size: var(--largeFontSize);
+}
+
+.bgGray100 {
+	background-color: var(--grayColor1000);
+}

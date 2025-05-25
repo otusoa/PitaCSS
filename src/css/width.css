@@ -1,0 +1,50 @@
+/* width */
+
+.w100 {
+	width: 100%;
+}
+
+.w50 {
+	width: 50%;
+}
+
+.wMax768 {
+	max-width: 768px;
+	margin: 0 auto;
+}
+
+.wMax1250 {
+	max-width: 1250px;
+	margin: 0 auto;
+}
+
+.fitContent {
+	width: fit-content;
+	max-width: 100%;
+}
+
+/* メディアクエリで非表示 */
+@media screen and (max-width: 768px) {
+	.hideMax768 {
+		display: none !important;
+	}
+}
+
+@media screen and (max-width: 1250px) {
+	.hideMax1250 {
+		display: none !important;
+	}
+}
+
+/* メディアクエリで表示 */
+@media screen and (min-width: 768px) {
+	.hideMin768 {
+		display: none !important;
+	}
+}
+
+@media screen and (min-width: 1250px) {
+	.hideMin1250 {
+		display: none !important;
+	}
+}

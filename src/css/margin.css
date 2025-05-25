@@ -1,0 +1,126 @@
+/* マージン全方向 */
+.m10 {
+	margin: 10px !important;
+}
+
+.m20 {
+	margin: 20px !important;
+}
+
+.m40 {
+	margin: 40px !important;
+}
+
+.m60 {
+	margin: 60px !important;
+}
+
+/* 上方向のマージン */
+.mT10 {
+	margin-top: 10px !important;
+}
+
+.mT20 {
+	margin-top: 20px !important;
+}
+
+.mT40 {
+	margin-top: 40px !important;
+}
+
+.mT60 {
+	margin-top: 60px !important;
+}
+
+/* 右方向のマージン */
+.mR10 {
+	margin-right: 10px !important;
+}
+
+.mR20 {
+	margin-right: 20px !important;
+}
+
+.mR40 {
+	margin-right: 40px !important;
+}
+
+.mR60 {
+	margin-right: 60px !important;
+}
+
+/* 下方向のマージン */
+.mB10 {
+	margin-bottom: 10px !important;
+}
+
+.mB20 {
+	margin-bottom: 20px !important;
+}
+
+.mB40 {
+	margin-bottom: 40px !important;
+}
+
+.mB60 {
+	margin-bottom: 60px !important;
+}
+
+/* 左方向のマージン */
+.mL10 {
+	margin-left: 10px !important;
+}
+
+.mL20 {
+	margin-left: 20px !important;
+}
+
+.mL40 {
+	margin-left: 40px !important;
+}
+
+.mL60 {
+	margin-left: 60px !important;
+}
+
+/* 水平方向のマージン (左右) */
+.mX10 {
+	margin-left: 10px !important;
+	margin-right: 10px !important;
+}
+
+.mX20 {
+	margin-left: 20px !important;
+	margin-right: 20px !important;
+}
+
+.mX40 {
+	margin-left: 40px !important;
+	margin-right: 40px !important;
+}
+
+.mX60 {
+	margin-left: 60px !important;
+	margin-right: 60px !important;
+}
+
+/* 垂直方向のマージン (上下) */
+.mY10 {
+	margin-top: 10px !important;
+	margin-bottom: 10px !important;
+}
+
+.mY20 {
+	margin-top: 20px !important;
+	margin-bottom: 20px !important;
+}
+
+.mY40 {
+	margin-top: 40px !important;
+	margin-bottom: 40px !important;
+}
+
+.mY60 {
+	margin-top: 60px !important;
+	margin-bottom: 60px !important;
+}
