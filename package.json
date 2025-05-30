@@ -2,7 +2,7 @@
   "name": "pita-css",
   "private": false,
   "version": "0.1.1",
-  "description": "シンプルなページを作るClassレスだけど、少し便利なClassが付属しているCSSライブラリ",
+  "description": "シンプルなドキュメンテーション用に特化したClassレスだけど、少し便利なClassが付属しているCSSライブラリ",
   "type": "module",
   "main": "./dist/PitaCSS.css",
   "style": "./dist/PitaCSS.css",
