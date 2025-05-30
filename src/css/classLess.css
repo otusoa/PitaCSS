@@ -1,0 +1,258 @@
+h1 {
+  position: relative;
+  width: fit-content;
+  max-width: 100%;
+  font-size: var(--medium-font-size);
+  font-weight: bold;
+  font-style: normal;
+  line-height: 1.2;
+  padding: 10px;
+  background-color: var(--gray-color-400);
+  border-left: 4px solid var(--sub-color);
+}
+
+h2 {
+  position: relative;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--sub-color);
+  width: fit-content;
+  font-size: var(--medium-font-size);
+  max-width: 100%;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+h3,
+h4,
+h5,
+h6 {
+  position: relative;
+  width: fit-content;
+  max-width: 100%;
+  font-size: var(--small-medium-font-size);
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+p {
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto 0px 0;
+  font-size: var(--standard-font-size);
+  line-height: 2.2;
+}
+
+img {
+  max-width: 100%;
+  object-fit: contain;
+  vertical-align: bottom;
+}
+
+ul,
+ol {
+  padding-left: 24px;
+  margin: 20px 0;
+}
+
+ul li,
+ol li {
+  margin-bottom: 12px;
+  position: relative;
+  padding-left: 8px;
+  line-height: 1.6;
+  color: var(--gray-color-200) !important;
+}
+
+ul li::marker,
+ol li::marker {
+  color: var(--sub-color);
+  font-weight: bold;
+}
+
+ul li:last-child,
+ol li:last-child {
+  margin-bottom: 0;
+}
+
+img {
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 0 20px 0;
+  min-height: auto;
+  height: auto;
+  max-height: 300px;
+}
+
+hr {
+  margin: 20px 0;
+  border: none;
+  border-top: 1px solid var(--sub-color);
+}
+
+table {
+  width: 100%;
+  max-width: 1200px;
+  border-collapse: collapse;
+  font-size: var(--standard-font-size);
+  background: var(--white-color);
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+table thead,
+table tbody {
+  display: table;
+  min-width: 768px;
+  width: 100%;
+}
+
+table tr {
+  display: table-row;
+}
+
+table th,
+table td {
+  border: 1px solid var(--sub-color);
+  padding: 10px 8px;
+  text-align: left;
+  display: table-cell;
+  white-space: nowrap;
+  min-width: 120px;
+}
+
+table th {
+  background: var(--main-color);
+  font-weight: bold;
+}
+
+table tr:nth-child(even) {
+  background: var(--gray-color-400);
+}
+
+table>* {
+  margin: 0 !important;
+}
+
+table small {
+  color: var(--gray-color-300);
+  font-size: 0.85em;
+  margin-top: 5px;
+  display: block;
+}
+
+blockquote {
+  margin: 0 0 20px 0;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-left: 4px solid var(--sub-color);
+
+  * {
+    margin: 0;
+  }
+}
+
+section {
+  padding: 30px 20px;
+
+  &:nth-child(odd) {
+    background-color: var(--gray-color-400);
+  }
+}
+
+code {
+  background-color: var(--dark-color);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 13px;
+  line-height: 1.2;
+  color: var(--white-color);
+  font-weight: 200;
+  display: inline-block;
+}
+
+pre {
+  background-color: var(--dark-color);
+  padding: 20px;
+  border-radius: 4px;
+  font-size: 13px;
+  color: var(--gray-color-200);
+  margin-bottom: 20px;
+  display: block;
+  width: 100%;
+  overflow-x: scroll;
+}
+
+pre code {
+  padding: 0;
+  display: block;
+  width: 100%;
+  background-color: transparent;
+}
+
+/* フォーム要素（ClassLess） */
+
+input[type="submit"],
+button[type="submit"] {
+  appearance: none;
+  background-color: var(--sub-color);
+  color: var(--white-color);
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 10px 15px;
+  text-shadow: 1px 1px 2px var(--dark-color);
+  box-shadow: var(--soft-shadow);
+  border-radius: calc(infinity * 1px);
+  transition: all 0.3s ease;
+  width: auto;
+  margin-bottom: 0;
+
+  &:hover {
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    transform: none;
+    cursor: not-allowed;
+  }
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: var(--standard-font-size);
+  color: var(--gray-color-200);
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid var(--gray-color-500);
+  border-radius: 4px;
+  font-size: var(--font-size-13px);
+  transition: border 0.3s, box-shadow 0.3s;
+  font-family: inherit;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--sub-color);
+  box-shadow: 0 0 0 2px rgba(77, 102, 62, 0.2);
+  outline: none;
+}
+
+input:invalid,
+textarea:invalid,
+select:invalid {
+  border-color: #f44336;
+  box-shadow: 0 0 0 2px rgba(244, 67, 54, 0.2);
+}

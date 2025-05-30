@@ -1,13 +1,21 @@
 {
   "name": "pita-css",
-  "version": "0.0.1",
-  "description": "シンプルで使いやすいユーティリティCSS",
+  "private": false,
+  "version": "0.1.1",
+  "description": "シンプルなページを作るClassレスだけど、少し便利なClassが付属しているCSSライブラリ",
   "type": "module",
-  "main": "dist/PitaCSS.css",
-  "style": "dist/PitaCSS.css",
+  "main": "./dist/PitaCSS.css",
+  "style": "./dist/PitaCSS.css",
   "files": [
     "dist"
   ],
+  "exports": { 
+    ".": {
+      "import": "./dist/PitaCSS.css",
+      "require": "./dist/PitaCSS.css"
+    },
+    "./style": "./dist/PitaCSS.css"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -15,8 +23,10 @@
   },
   "keywords": [
     "css",
-    "utility",
-    "styling"
+    "pita-css",
+    "vue",
+    "ui",
+    "components"
   ],
   "author": "Your Name",
   "license": "MIT",

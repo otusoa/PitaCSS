@@ -1,7 +1,0 @@
-.section {
-	padding: 30px 20px;
-
-	&:nth-child(odd) {
-		background-color: var(--grayColor1000);
-	}
-}

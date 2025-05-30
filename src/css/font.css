@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap');
+
+.font-size-13px {
+    font-size: var(--font-size-13px);
+}
+
+.font-size-15px {
+    font-size: var(--font-size-15px);
+}
+
+.small-font-size {
+    font-size: var(--small-font-size);
+}
+
+.standard-font-size {
+    font-size: var(--standard-font-size);
+}
+
+.small-medium-font-size {
+    font-size: var(--small-medium-font-size);
+}
+
+.medium-font-size {
+    font-size: var(--medium-font-size);
+}
+
+.large-font-size {
+    font-size: var(--large-font-size);
+}

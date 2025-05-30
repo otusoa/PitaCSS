@@ -1,0 +1,57 @@
+button {
+    appearance: none;
+    background-color: var(--sub-color);
+    color: var(--white-color);
+    border: none;
+    cursor: pointer;
+    outline: none;
+    padding: 10px 15px;
+    text-shadow: 1px 1px 2px var(--dark-color);
+    box-shadow: var(--soft-shadow);
+    border-radius: calc(infinity * 1px);
+    transition: all 0.3s ease;
+
+    &:hover {
+        transform: translateY(-2px);
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    &:disabled {
+        opacity: 0.3;
+        transform: none;
+        cursor: not-allowed;
+    }
+}
+
+button.info {
+    appearance: none;
+    background-color: var(--info-color);
+    border: none;
+    cursor: pointer;
+    outline: none;
+}
+
+button.success {
+    appearance: none;
+    background-color: var(--success-color);
+    border: none;
+    cursor: pointer;
+    outline: none;
+}
+
+button.warning {
+    appearance: none;
+    background-color: var(--warning-color);
+    border: none;
+    cursor: pointer;
+    outline: none;
+}
+
+button.error {
+    appearance: none;
+    background-color: var(--error-color);
+    border: none;
+    cursor: pointer;
+    outline: none;
+}

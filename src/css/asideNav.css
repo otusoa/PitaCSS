@@ -1,0 +1,218 @@
+/* アサイドナビゲーション - ClassレスベースのHTML要素セレクタ */
+
+/* HTML5のaside要素をサイドナビゲーションとして使用 */
+aside {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100vh;
+    background-color: var(--white-color);
+    border-right: 1px solid var(--gray-color-500);
+    box-shadow: var(--standard-shadow);
+    overflow-y: auto;
+    z-index: 100;
+    transition: transform 0.3s ease;
+}
+
+/* ナビヘッダー部分 - aside内のdiv要素 */
+aside>.aside-header:first-child {
+    padding: 20px;
+    border-bottom: 1px solid var(--gray-color-500);
+    background-color: var(--main-color);
+    height: 80px;
+}
+
+aside>.aside-header:first-child h1,
+aside>.aside-header:first-child h2,
+aside>.aside-header:first-child h3 {
+    margin: 0;
+    font-size: var(--small-medium-font-size);
+    color: var(--gray-color-100);
+    border: none;
+    padding: 0;
+    background: none;
+}
+
+@media screen and (max-width: 768px) {
+
+    aside>.aside-header:first-child h1,
+    aside>.aside-header:first-child h2,
+    aside>.aside-header:first-child h3 {
+        display: none;
+        /* モバイルではヘッダーを非表示 */
+    }
+}
+
+/* メニューリスト */
+aside ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+aside li {
+    margin: 0;
+    padding: 0;
+}
+
+aside a {
+    display: block;
+    padding: 15px 20px;
+    color: var(--gray-color-100);
+    text-decoration: none;
+    border-bottom: 1px solid var(--gray-color-500);
+    transition: all 0.3s ease;
+}
+
+aside a:hover {
+    background-color: var(--gray-color-400);
+    color: var(--sub-color);
+    text-decoration: none;
+}
+
+/* アクティブ状態のリンク */
+aside a.active {
+    background-color: var(--sub-color);
+    color: var(--white-color);
+}
+
+aside a.active:hover {
+    background-color: var(--sub-color);
+    opacity: 0.9;
+}
+
+/* ネストされたメニュー */
+aside ul ul {
+    padding-left: 20px;
+    background-color: var(--gray-color-400);
+}
+
+aside ul ul a {
+    padding: 10px 20px;
+    font-size: var(--small-font-size);
+    border-bottom: 1px solid var(--gray-color-500);
+}
+
+/* メインコンテンツ - main要素のマージン調整 */
+main {
+    margin-left: 250px;
+    transition: margin-left 0.3s ease;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* 非表示状態のメインコンテンツ - bodyにクラスが付いた場合 */
+body.nav-hidden main {
+    margin-left: 0;
+}
+
+/* レスポンシブ対応 */
+@media screen and (max-width: 768px) {
+    aside {
+        width: 280px;
+        transform: translateX(-100%);
+    }
+
+    /* モバイルでナビが開いている状態 */
+    body.nav-open aside {
+        transform: translateX(0);
+    }
+
+    main {
+        margin-left: 0;
+    }
+}
+
+/* ナビゲーション非表示状態（デスクトップ） */
+@media screen and (min-width: 769px) {
+    body.nav-hidden aside {
+        transform: translateX(-100%);
+    }
+}
+
+/* 右側配置バリエーション */
+aside.right {
+    left: auto;
+    right: 0;
+    border-right: none;
+    border-left: 1px solid var(--gray-color-500);
+}
+
+body.right-nav main {
+    margin-left: 0;
+    margin-right: 250px;
+}
+
+body.right-nav.nav-hidden main {
+    margin-right: 0;
+}
+
+@media screen and (max-width: 768px) {
+    aside.right {
+        transform: translateX(100%);
+    }
+
+    body.nav-open aside.right {
+        transform: translateX(0);
+    }
+
+    body.right-nav main {
+        margin-right: 0;
+    }
+}
+
+@media screen and (min-width: 769px) {
+    body.right-nav.nav-hidden aside.right {
+        transform: translateX(100%);
+    }
+}
+
+/* オーバーレイ（モバイル用） - 追加のdiv要素として */
+.nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 99;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+body.nav-open .nav-overlay {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ボタン要素をナビゲーションコントロールとして使用 */
+button.nav-toggle {
+    display: none;
+    top: 20px;
+    left: 20px;
+    z-index: 101;
+    background-color: var(--sub-color);
+    color: var(--white-color);
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: var(--soft-shadow);
+    transition: all 0.3s ease;
+}
+
+button.nav-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+@media screen and (max-width: 768px) {
+    button.nav-toggle {
+        display: block;
+        position: fixed;
+        left: 10px;
+        top: 10px;
+    }
+}

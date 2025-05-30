@@ -1,29 +1,29 @@
-.contentRight {
-	width: fit-content;
-	max-width: 100%;
-	margin: 0 0 0 auto;
+.content-right {
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 0 0 auto;
 }
 
-.contentCenter {
-	width: fit-content;
-	max-width: 100%;
-	margin: 0 auto;
+.content-center {
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto;
 }
 
-.contentLeft {
-	width: fit-content;
-	max-width: 100%;
-	margin: 0 auto 0 0;
+.content-left {
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto 0 0;
 }
 
-.textCenter {
+.text-center {
     text-align: center;
 }
 
-.textLeft {
+.text-left {
     text-align: left;
 }
 
-.textRight {
+.text-right {
     text-align: right;
 }
