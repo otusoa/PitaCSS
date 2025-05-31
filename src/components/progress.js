@@ -163,14 +163,22 @@ class ProgressLoader {
             }
 
             const linkUrl = new URL(href, window.location.origin);
-            if (linkUrl.pathname === window.location.pathname) {
+            // パスが同じで、ハッシュだけが変化する場合はプログレスバーを表示しない
+            if (
+                linkUrl.pathname === window.location.pathname &&
+                linkUrl.hash !== '' &&
+                linkUrl.hash !== window.location.hash
+            ) {
+                return;
+            }
+            // パスもハッシュも同じ場合もスキップ
+            if (
+                linkUrl.pathname === window.location.pathname &&
+                linkUrl.hash === window.location.hash
+            ) {
                 return;
             }
 
-            this.startLoading();
-        });
-
-        window.addEventListener('popstate', () => {
             this.startLoading();
         });
     }

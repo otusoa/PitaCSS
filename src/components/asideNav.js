@@ -1,8 +1,13 @@
 // マルチフレームワーク対応のシンプルなナビゲーション
 const AsideNav = (() => {
+    let isInitialized = false;
+    
     const init = () => {
         // ブラウザ環境でない場合は何もしない
         if (typeof document === 'undefined') return;
+        
+        // 重複初期化を防ぐ
+        if (isInitialized) return;
         
         const toggle = document.querySelector('.nav-toggle');
         const overlay = document.querySelector('.nav-overlay');
@@ -15,11 +20,17 @@ const AsideNav = (() => {
         toggle.addEventListener('click', toggleNav);
         overlay.addEventListener('click', closeNav);
         
+        isInitialized = true;
+        
         return { toggleNav, closeNav };
     };
     
+    // 自動初期化フラグ（オプション）
+    const autoInit = typeof window !== 'undefined' && 
+                     window.pitaCSS?.asideNav?.autoInit !== false;
+    
     // 自動初期化（バニラJS・ブラウザ環境のみ）
-    if (typeof document !== 'undefined') {
+    if (typeof document !== 'undefined' && autoInit) {
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', init);
         } else {
@@ -30,5 +41,8 @@ const AsideNav = (() => {
     return { init };
 })();
 
-// エクスポート（必要に応じて）
+// ES6モジュールとしてエクスポート
+export { AsideNav };
+
+// CommonJSとの互換性も保持
 if (typeof module !== 'undefined') module.exports = AsideNav;

@@ -292,7 +292,7 @@ small{
 }
 
 details {
-  background-color: var(--gray-color-400);
+  background-color: var(--white-color);
   border: 1px solid var(--gray-color-500);
   border-radius: 8px;
   margin-bottom: 16px;
@@ -337,6 +337,12 @@ summary:hover {
 
 summary:hover::after {
   color: var(--white-color);
+}
+
+@media (max-width: 1250px) {
+  summary {
+    padding-right: 25px;
+  }
 }
 
 details > *:not(summary) {

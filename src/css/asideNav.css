@@ -21,7 +21,6 @@ aside>.aside-header:first-child {
     padding: 20px;
     border-bottom: 1px solid var(--gray-color-500);
     background-color: var(--main-color);
-    height: 80px;
 }
 
 aside>.aside-header:first-child h1,
