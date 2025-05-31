@@ -285,3 +285,67 @@ select:invalid {
   border-color: #f44336;
   box-shadow: 0 0 0 2px rgba(244, 67, 54, 0.2);
 }
+
+small{
+  color: var(--gray-color-300);
+  font-size: var(--font-size-13px);
+}
+
+details {
+  background-color: var(--gray-color-400);
+  border: 1px solid var(--gray-color-500);
+  border-radius: 8px;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+summary {
+  background-color: var(--main-color);
+  padding: 12px 16px;
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--sub-color);
+  position: relative;
+  list-style: none;
+  outline: none;
+  transition: background-color 0.2s ease;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+summary::after {
+  content: "▼";
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%) rotate(0deg);
+  transition: transform 0.2s ease;
+  font-size: 12px;
+  color: var(--sub-color);
+}
+
+details[open] summary::after {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+summary:hover {
+  background-color: var(--sub-color);
+  color: var(--white-color);
+}
+
+summary:hover::after {
+  color: var(--white-color);
+}
+
+details > *:not(summary) {
+  padding: 16px;
+  margin: 0 20px 0 20px;
+  color: var(--gray-color-200);
+}
+
+details p {
+  margin: 0;
+  line-height: 1.5;
+}

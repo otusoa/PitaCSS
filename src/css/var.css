@@ -19,10 +19,10 @@
 	--white-color: #fff;
 
 	/* 情報色(Background) */
-	--info-color: #358cd3;
-	--success-color: #3c883e;
-	--warning-color: #ed9209;
-	--error-color: #c03127;
+	--info-color: #358cd3cc;
+	--success-color: #3c883ecc;
+	--warning-color: #d99227cc;
+	--error-color: #c03127cc;
 
 	/* リンク色 */
 	--link-color: #1570d4;
