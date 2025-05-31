@@ -1,0 +1,30 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    min-height: 100vh;
+    color: var(--grayColor100, #333);
+    background-color: var(--grayColor1000, #ECEFF1);
+}
+
+main {
+    flex: 1;
+    background-color: var(--grayColor1000, #ECEFF1);
+    min-height: calc(100vh - 72px);
+    min-width: 0;
+    max-width: 1250px;
+
+    @media screen and (max-width: 1250px) {
+        padding: 40px 40px 0 40px;
+    }
+}
+
+.content {
+    display: flex;
+    flex: 1;
+    min-width: 0;
+    justify-content: center;
+
+    @media screen and (max-width: 1250px) {
+        flex-direction: column;
+    }
+}

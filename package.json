@@ -1,20 +1,24 @@
 {
   "name": "pita-css",
   "private": false,
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "シンプルなドキュメンテーション用に特化したClassレスだけど、少し便利なClassが付属しているCSSライブラリ",
   "type": "module",
-  "main": "./dist/PitaCSS.css",
+  "main": "./dist/PitaCSS.js",
   "style": "./dist/PitaCSS.css",
   "files": [
     "dist"
   ],
   "exports": { 
     ".": {
-      "import": "./dist/PitaCSS.css",
-      "require": "./dist/PitaCSS.css"
+      "import": "./dist/PitaCSS.js",
+      "require": "./dist/PitaCSS.js"
     },
-    "./style": "./dist/PitaCSS.css"
+    "./style": "./dist/PitaCSS.css",
+    "./js": {
+      "import": "./dist/PitaCSS.js",
+      "require": "./dist/PitaCSS.js"
+    }
   },
   "scripts": {
     "dev": "vite",

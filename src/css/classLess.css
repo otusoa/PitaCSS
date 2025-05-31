@@ -91,20 +91,22 @@ hr {
 
 table {
   width: 100%;
-  max-width: 1200px;
+  max-width: 100%;
   border-collapse: collapse;
   font-size: var(--standard-font-size);
   background: var(--white-color);
-  display: block;
-  overflow-x: auto;
-  white-space: nowrap;
+  display: table;
+  table-layout: fixed;
 }
 
 table thead,
 table tbody {
-  display: table;
-  min-width: 768px;
+  display: table-header-group;
   width: 100%;
+}
+
+table tbody {
+  display: table-row-group;
 }
 
 table tr {
@@ -117,8 +119,10 @@ table td {
   padding: 10px 8px;
   text-align: left;
   display: table-cell;
-  white-space: nowrap;
-  min-width: 120px;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 0;
 }
 
 table th {
@@ -139,6 +143,30 @@ table small {
   font-size: 0.85em;
   margin-top: 5px;
   display: block;
+}
+
+/* 768px以下でテーブルに横スクロールを適用 */
+@media (max-width: 768px) {
+  table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  table thead,
+  table tbody,
+  table tr {
+    display: table;
+    width: 100%;
+  }
+
+  table th,
+  table td {
+    white-space: nowrap;
+    min-width: 120px;
+  }
 }
 
 blockquote {
@@ -186,6 +214,7 @@ pre {
 pre code {
   padding: 0;
   display: block;
+  min-width: 0;
   width: 100%;
   background-color: transparent;
 }

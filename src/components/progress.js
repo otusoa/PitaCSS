@@ -1,241 +1,267 @@
 /**
- * PitaProgress - ページ遷移用プログレスバー
- * あらゆる環境（Vue、React、バニラJS）で動作するように設計
+ * PitaProgress
  */
-(function () {
-    // プライベート変数
-    let isLoading = false;
-    let progressValue = 0;
-    let loadingStart = 0;
-    let progressInterval = null;
-    let finalInterval = null;
-    let progressElement = null;
-    let styleElement = null;
+class ProgressLoader {
+    constructor(options = {}) {
+        // ブラウザ環境でない場合は何もしない
+        if (typeof window === 'undefined') return;
+        
+        this.config = {
+            minDuration: 800,
+            estimatedDuration: 2000,
+            height: '3px',
+            color: '#007bff',
+            zIndex: 1000,
+            animationSpeed: 16,
+            ...options
+        };
 
-    // プログレスバーのスタイル定義
-    const styles = `
-    .pita-progress {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 3px;
-      z-index: 1000;
-      width: 100%;
-      border-radius: 0 !important;
-      display: none;
-    }
-    
-    .pita-progress.stripe {
-      background-image: linear-gradient(
-        -45deg,
-        rgba(255, 255, 255, 0.2) 25%,
-        transparent 25%,
-        transparent 50%,
-        rgba(255, 255, 255, 0.2) 50%,
-        rgba(255, 255, 255, 0.2) 75%,
-        transparent 75%,
-        transparent
-      );
-      background-size: 30px 30px;
-      animation: pita-progress-stripe 1s linear infinite;
-    }
-    
-    @keyframes pita-progress-stripe {
-      0% { background-position: 0 0; }
-      100% { background-position: 30px 0; }
-    }
-  `;
+        this.isLoading = false;
+        this.progressValue = 0;
+        this.loadingStart = 0;
+        this.progressInterval = null;
+        this.finalInterval = null;
+        this.hideTimeout = null;
+        this.progressElement = null;
 
-    // プログレスバーの表示/非表示を切り替える
-    function updateProgressVisibility() {
-        if (progressElement) {
-            progressElement.style.display = isLoading ? 'block' : 'none';
+        this.init();
+    }
+
+    init() {
+        // ブラウザ環境でない場合は何もしない
+        if (typeof document === 'undefined') return;
+        
+        this.createProgressElement();
+        this.setupNavigationHandlers();
+        this.setupPageFinishHandler();
+
+        window.addEventListener('beforeunload', () => {
+            this.clearIntervals();
+        });
+    }
+
+    createProgressElement() {
+        if (typeof document === 'undefined') return;
+        
+        // 既存の#progressエレメントを探す
+        this.progressElement = document.getElementById('progress');
+
+        if (!this.progressElement) {
+            // 既存の要素がない場合は新規作成
+            this.progressElement = document.createElement('progress');
+            this.progressElement.id = 'progress';
+            this.progressElement.className = 'stripe';
+            this.progressElement.max = 100;
+            this.progressElement.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 3px;
+                z-index: 1000;
+                width: 100%;
+                border-radius: 0 !important;
+                display: none;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            `;
+            document.body.appendChild(this.progressElement);
+        } else {
+            // 既存要素にもスタイルとトランジションを設定
+            this.progressElement.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 3px;
+                z-index: 1000;
+                width: 100%;
+                border-radius: 0 !important;
+                transition: opacity 0.3s ease;
+            `;
         }
     }
 
-    // プログレスバーの値を更新
-    function updateProgressValue() {
-        if (progressElement) {
-            progressElement.value = progressValue;
+    clearIntervals() {
+        if (this.progressInterval) {
+            clearInterval(this.progressInterval);
+            this.progressInterval = null;
+        }
+        if (this.finalInterval) {
+            clearInterval(this.finalInterval);
+            this.finalInterval = null;
+        }
+        if (this.hideTimeout) {
+            clearTimeout(this.hideTimeout);
+            this.hideTimeout = null;
         }
     }
 
-    // プログレスバーをクリアする関数
-    function clearIntervals() {
-        if (progressInterval) {
-            clearInterval(progressInterval);
-            progressInterval = null;
-        }
-        if (finalInterval) {
-            clearInterval(finalInterval);
-            finalInterval = null;
-        }
-    }
+    finishLoading() {
+        // 既にローディング中でない場合は何もしない
+        if (!this.isLoading) return;
 
-    // ローディング完了処理
-    function finishLoading() {
-        const elapsed = Date.now() - loadingStart;
-        const minDuration = 800; // 最小表示時間
+        const elapsed = Date.now() - this.loadingStart;
+        const remainingTime = Math.max(0, this.config.minDuration - elapsed);
 
-        clearIntervals();
+        this.clearIntervals();
 
-        // プログレスバーを100%まで素早く完了
-        progressValue = 100;
-        updateProgressValue();
+        this.progressValue = 100;
+        this.progressElement.value = this.progressValue;
 
-        // 最小表示時間を考慮してローディングを終了
-        const remainingTime = Math.max(0, minDuration - elapsed);
-
-        setTimeout(() => {
-            isLoading = false;
-            updateProgressVisibility();
+        this.finalInterval = setTimeout(() => {
+            this.isLoading = false;
+            this.hideProgress();
         }, remainingTime);
     }
 
-    // ページ遷移開始時の処理
-    function startProgress() {
-        // 既存のローディングをクリア
-        clearIntervals();
+    showProgress() {
+        // 既に表示中または表示処理中の場合は前回の処理をクリア
+        this.clearIntervals();
 
-        isLoading = true;
-        progressValue = 5; // 初期値
-        loadingStart = Date.now();
+        this.progressElement.style.display = 'block';
+        this.progressElement.style.opacity = '0';
+        this.progressElement.style.transition = '';
 
-        updateProgressVisibility();
-        updateProgressValue();
+        requestAnimationFrame(() => {
+            this.progressElement.style.transition = 'opacity 0.2s ease-in';
+            this.progressElement.style.opacity = '1';
+        });
+    }
 
-        // プログレスバーのアニメーション開始
-        progressInterval = setInterval(() => {
-            const elapsed = Date.now() - loadingStart;
-            const estimatedDuration = 2000;
+    hideProgress() {
+        // 既に非表示処理中の場合は何もしない
+        if (this.hideTimeout) return;
 
-            // より自然な進行曲線
-            const progress = Math.min(5 + (elapsed / estimatedDuration) * 85, 90);
-            progressValue = progress;
-            updateProgressValue();
+        this.progressElement.style.transition = 'opacity 0.5s ease-out';
+        this.progressElement.style.opacity = '0';
 
-            // 90%に達したら一旦停止
-            if (progress >= 90) {
-                clearInterval(progressInterval);
-                progressInterval = null;
+        this.hideTimeout = setTimeout(() => {
+            this.progressElement.style.display = 'none';
+            this.progressElement.style.transition = '';
+            this.hideTimeout = null;
+        }, 500);
+    }
+
+    setupNavigationHandlers() {
+        if (typeof document === 'undefined') return;
+        
+        document.addEventListener('click', (event) => {
+            const link = event.target.closest('a[href]');
+            if (!link) return;
+
+            const href = link.getAttribute('href');
+
+            // スキップ条件
+            if (href.startsWith('http') ||
+                href.startsWith('//') ||
+                href.startsWith('#') ||
+                href.startsWith('mailto:') ||
+                href.startsWith('tel:') ||
+                link.hasAttribute('download') ||
+                link.classList.contains('no-progress') ||
+                link.hasAttribute('data-no-progress')) {
+                return;
             }
-        }, 16); // 60FPSに近い滑らかさ
+
+            const linkUrl = new URL(href, window.location.origin);
+            if (linkUrl.pathname === window.location.pathname) {
+                return;
+            }
+
+            this.startLoading();
+        });
+
+        window.addEventListener('popstate', () => {
+            this.startLoading();
+        });
     }
 
-    // リンククリックのハンドラー
-    function handleLinkClick(e) {
-        // リンクがクリックされた場合
-        const target = e.target.closest('a');
-        if (target &&
-            target.href &&
-            target.href.startsWith(window.location.origin) &&
-            !e.ctrlKey && !e.metaKey &&
-            target.target !== '_blank') {
-
-            e.preventDefault();
-            const href = target.href;
-
-            // プログレスバーを開始
-            startProgress();
-
-            // 遷移をシミュレート
-            setTimeout(() => {
-                window.history.pushState({}, '', href);
-                finishLoading();
-            }, 1000);
-        }
-    }
-
-    // ページナビゲーションの監視
-    function handlePopState() {
-        startProgress();
-        // ページ遷移が完了したことをシミュレート
-        setTimeout(finishLoading, 1000);
-    }
-
-    // 初期化関数
-    function init() {
-        // すでに初期化されている場合は何もしない
-        if (progressElement) return;
-
-        // スタイルの追加
-        styleElement = document.createElement('style');
-        styleElement.textContent = styles;
-        document.head.appendChild(styleElement);
-
-        // プログレスバー要素を作成
-        progressElement = document.createElement('progress');
-        progressElement.id = 'pita-progress';
-        progressElement.className = 'pita-progress stripe';
-        progressElement.max = 100;
-        progressElement.value = 0;
-        document.body.appendChild(progressElement);
-
-        // イベントリスナーの設定
-        window.addEventListener('popstate', handlePopState);
-        document.addEventListener('click', handleLinkClick);
-
-        // 初期状態は非表示
-        updateProgressVisibility();
-    }
-
-    // クリーンアップ関数
-    function destroy() {
-        // イベントリスナーの削除
-        window.removeEventListener('popstate', handlePopState);
-        document.removeEventListener('click', handleLinkClick);
-
-        // インターバルのクリア
-        clearIntervals();
-
-        // 要素の削除
-        if (progressElement && progressElement.parentNode) {
-            progressElement.parentNode.removeChild(progressElement);
-            progressElement = null;
+    startLoading() {
+        // 既にローディング中の場合は一旦リセット
+        if (this.isLoading) {
+            this.clearIntervals();
         }
 
-        // スタイルの削除
-        if (styleElement && styleElement.parentNode) {
-            styleElement.parentNode.removeChild(styleElement);
-            styleElement = null;
+        this.isLoading = true;
+        this.progressValue = 5;
+        this.progressElement.value = this.progressValue;
+        this.loadingStart = Date.now();
+
+        this.showProgress();
+
+        this.progressInterval = setInterval(() => {
+            const elapsed = Date.now() - this.loadingStart;
+            const progress = Math.min(5 + (elapsed / this.config.estimatedDuration) * 85, 90);
+            this.progressValue = progress;
+            this.progressElement.value = this.progressValue;
+
+            if (progress >= 90) {
+                clearInterval(this.progressInterval);
+                this.progressInterval = null;
+            }
+        }, this.config.animationSpeed);
+    }
+
+    setupPageFinishHandler() {
+        if (typeof document === 'undefined') return;
+        
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                if (this.isLoading) {
+                    setTimeout(() => this.finishLoading(), 100);
+                }
+            });
+        }
+
+        window.addEventListener('load', () => {
+            if (this.isLoading) {
+                setTimeout(() => this.finishLoading(), 100);
+            }
+        });
+
+        const observer = new MutationObserver(() => {
+            if (this.isLoading) {
+                setTimeout(() => this.finishLoading(), 100);
+            }
+        });
+
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+    }
+
+    // 手動制御用のパブリックメソッド
+    start() {
+        this.startLoading();
+    }
+
+    finish() {
+        this.finishLoading();
+    }
+
+    destroy() {
+        this.clearIntervals();
+        if (this.progressElement && !document.querySelector('#progress')) {
+            this.progressElement.remove();
         }
     }
+}
 
-    // DOMContentLoadedイベントでの初期化
-    function handleDOMContentLoaded() {
-        init();
-    }
-
-    // ページ読み込み時の初期化
+// 自動初期化（バニラJS用・ブラウザ環境のみ）
+if (typeof window !== 'undefined' && typeof document !== 'undefined' && !window.progressLoader) {
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', handleDOMContentLoaded);
+        document.addEventListener('DOMContentLoaded', () => {
+            window.progressLoader = new ProgressLoader();
+        });
     } else {
-        init();
+        window.progressLoader = new ProgressLoader();
     }
+}
 
-    // ページアンロード時のクリーンアップ
-    window.addEventListener('beforeunload', clearIntervals);
+// エクスポート
+export default ProgressLoader;
 
-    // 公開API
-    const PitaProgress = {
-        start: startProgress,
-        finish: finishLoading,
-        init: init,
-        destroy: destroy
-    };
-
-    // グローバルスコープに公開
-    if (typeof window !== 'undefined') {
-        window.PitaProgress = PitaProgress;
-    }
-
-    // CommonJS環境対応
-    if (typeof module !== 'undefined' && module.exports) {
-        module.exports = PitaProgress;
-    }
-
-    // ES Modules対応
-    if (typeof exports !== 'undefined') {
-        exports.PitaProgress = PitaProgress;
-    }
-})();
+// CommonJSエクスポート
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = ProgressLoader;
+}
