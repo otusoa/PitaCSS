@@ -137,7 +137,7 @@ progress:not([value]) {
             var(--sub-color) 50%,
             var(--sub-color) 100%);
     background-size: 200% 100%;
-    animation: indeterminateProgress 2s ease-in-out infinite;
+    animation: indeterminateProgress 2s cubic-bezier(0.5,0,0.5,1) infinite;
 }
 
 progress:not([value])::-webkit-progress-bar {

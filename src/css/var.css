@@ -24,6 +24,11 @@
 	--warning-color: #d99227cc;
 	--error-color: #c03127cc;
 
+	--info-color-border: #0f92fccc;
+	--success-color-border: #30bd35cc;
+	--warning-color-border: #fa9a09cc;
+	--error-color-border: #d32013cc;
+
 	/* リンク色 */
 	--link-color: #1570d4;
 	--link-color-active: #7d7d7d96;
