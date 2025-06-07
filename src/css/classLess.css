@@ -2,24 +2,26 @@ h1 {
   position: relative;
   width: fit-content;
   max-width: 100%;
-  font-size: var(--medium-font-size);
+  font-size: var(--text-xl);
   font-weight: bold;
   font-style: normal;
   line-height: 1.2;
   padding: 10px;
-  background-color: var(--gray-color-400);
-  border-left: 4px solid var(--sub-color);
+  background-color: var(--gray-tertiary); /* 変更: var(--border-secondary)→var(--gray-tertiary) */
+  border-left: 4px solid var(--brand-secondary);
+  margin-bottom: 20px;
 }
 
 h2 {
   position: relative;
   padding-bottom: 10px;
-  border-bottom: 2px solid var(--sub-color);
+  border-bottom: 2px solid var(--brand-secondary);
   width: fit-content;
-  font-size: var(--medium-font-size);
+  font-size: var(--text-xl);
   max-width: 100%;
   font-weight: bold;
   line-height: 1.2;
+  margin-bottom: 20px;
 }
 
 h3,
@@ -29,29 +31,31 @@ h6 {
   position: relative;
   width: fit-content;
   max-width: 100%;
-  font-size: var(--small-medium-font-size);
+  font-size: var(--text-lg);
   font-weight: bold;
   line-height: 1.2;
+  margin-bottom: 20px;
 }
 
 p {
   width: fit-content;
   max-width: 100%;
   margin: 0 auto 0px 0;
-  font-size: var(--standard-font-size);
+  font-size: var(--text-base);
   line-height: 2.2;
-}
-
-img {
-  max-width: 100%;
-  object-fit: contain;
-  vertical-align: bottom;
+  margin-bottom: 20px;
 }
 
 ul,
 ol {
   padding-left: 24px;
   margin: 20px 0;
+  margin-bottom: 20px;
+}
+
+li>ul,
+li>ol {
+  margin-bottom: 0 !important;
 }
 
 ul li,
@@ -60,12 +64,11 @@ ol li {
   position: relative;
   padding-left: 8px;
   line-height: 1.6;
-  color: var(--gray-color-200) !important;
 }
 
 ul li::marker,
 ol li::marker {
-  color: var(--sub-color);
+  color: var(--brand-secondary);
   font-weight: bold;
 }
 
@@ -81,20 +84,23 @@ img {
   min-height: auto;
   height: auto;
   max-height: 300px;
+  object-fit: contain;
+  vertical-align: bottom;
 }
 
 hr {
   margin: 20px 0;
   border: none;
-  border-top: 1px solid var(--sub-color);
+  border-top: 1px solid var(--brand-secondary);
 }
 
 table {
   width: 100%;
   max-width: 100%;
   border-collapse: collapse;
-  font-size: var(--standard-font-size);
-  background: var(--white-color);
+  font-size: var(--text-base);
+  background: var(--gray-primary); /* 変更: var(--bg-primary)→var(--gray-primary) */
+  margin-bottom: 20px;
   display: table;
   table-layout: fixed;
 }
@@ -115,7 +121,7 @@ table tr {
 
 table th,
 table td {
-  border: 1px solid var(--sub-color);
+  border: 1px solid var(--brand-secondary);
   padding: 10px 8px;
   text-align: left;
   display: table-cell;
@@ -126,12 +132,12 @@ table td {
 }
 
 table th {
-  background: var(--main-color);
+  background: var(--brand-primary);
   font-weight: bold;
 }
 
 table tr:nth-child(even) {
-  background: var(--gray-color-400);
+  background: var(--gray-tertiary); /* 変更: var(--border-secondary)→var(--gray-tertiary) */
 }
 
 table>* {
@@ -139,7 +145,7 @@ table>* {
 }
 
 table small {
-  color: var(--gray-color-300);
+  color: var(--text-muted);
   font-size: 0.85em;
   margin-top: 5px;
   display: block;
@@ -172,8 +178,8 @@ table small {
 blockquote {
   margin: 0 0 20px 0;
   padding: 10px;
-  background-color: #f9f9f9;
-  border-left: 4px solid var(--sub-color);
+  background-color: var(--gray-secondary); /* 変更: #f9f9f9→var(--gray-secondary) */
+  border-left: 4px solid var(--brand-secondary);
 
   * {
     margin: 0;
@@ -181,30 +187,27 @@ blockquote {
 }
 
 section {
-  padding: 30px 20px;
+  margin: 30px 0px;
 
-  &:nth-child(odd) {
-    background-color: var(--gray-color-400);
-  }
 }
 
 code {
-  background-color: var(--dark-color);
+  background-color: var(--text-primary);
   padding: 4px 8px;
   border-radius: 4px;
-  font-size: 13px;
+  font-size: var(--text-xs);
   line-height: 1.2;
-  color: var(--white-color);
+  color: var(--gray-primary); /* 変更: var(--bg-primary)→var(--gray-primary) */
   font-weight: 200;
   display: inline-block;
 }
 
 pre {
-  background-color: var(--dark-color);
+  background-color: var(--text-primary);
   padding: 20px;
   border-radius: 4px;
-  font-size: 13px;
-  color: var(--gray-color-200);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
   margin-bottom: 20px;
   display: block;
   width: 100%;
@@ -219,19 +222,37 @@ pre code {
   background-color: transparent;
 }
 
+kbd {
+  background-color: var(--text-primary);
+  color: var(--gray-primary); /* 変更: var(--bg-primary)→var(--gray-primary) */
+  border: 1px solid var(--border-primary);
+  border-bottom: 2px solid var(--gray-tertiary); /* 変更: var(--border-secondary)→var(--gray-tertiary) */
+  border-radius: 3px;
+  padding: 2px 6px;
+  display: inline-block;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+  margin: 0 1px;
+  white-space: nowrap;
+  line-height: 1;
+  
+  &:active{
+    transform: translateY(1px);
+    border-bottom: 1px solid var(--gray-tertiary); /* 変更: var(--border-secondary)→var(--gray-tertiary) */
+    box-shadow: none;
+  }
+}
+
 /* フォーム要素（ClassLess） */
 
 input[type="submit"],
 button[type="submit"] {
   appearance: none;
-  background-color: var(--sub-color);
-  color: var(--white-color);
+  background-color: var(--brand-secondary);
   border: none;
   cursor: pointer;
   outline: none;
   padding: 10px 15px;
-  text-shadow: 1px 1px 2px var(--dark-color);
-  box-shadow: var(--soft-shadow);
+  box-shadow: var(--shadow-md);
   border-radius: calc(infinity * 1px);
   transition: all 0.3s ease;
   width: auto;
@@ -253,8 +274,8 @@ button[type="submit"] {
 label {
   display: block;
   margin-bottom: 8px;
-  font-size: var(--standard-font-size);
-  color: var(--gray-color-200);
+  font-size: var(--text-base);
+  color: var(--text-secondary);
 }
 
 input,
@@ -262,9 +283,9 @@ textarea,
 select {
   width: 100%;
   padding: 12px;
-  border: 2px solid var(--gray-color-500);
+  border: 2px solid var(--border-primary);
   border-radius: 4px;
-  font-size: var(--font-size-13px);
+  font-size: var(--text-xs);
   transition: border 0.3s, box-shadow 0.3s;
   font-family: inherit;
   margin-bottom: 20px;
@@ -274,7 +295,7 @@ select {
 input:focus,
 textarea:focus,
 select:focus {
-  border-color: var(--sub-color);
+  border-color: var(--brand-secondary);
   box-shadow: 0 0 0 2px rgba(77, 102, 62, 0.2);
   outline: none;
 }
@@ -282,29 +303,30 @@ select:focus {
 input:invalid,
 textarea:invalid,
 select:invalid {
-  border-color: #f44336;
+  border-color: var(--status-error);
   box-shadow: 0 0 0 2px rgba(244, 67, 54, 0.2);
 }
 
-small{
-  color: var(--gray-color-300);
-  font-size: var(--font-size-13px);
+small {
+  color: var(--text-muted);
+  font-size: var(--text-xs);
 }
 
 details {
-  background-color: var(--white-color);
-  border: 1px solid var(--gray-color-500);
+  background-color: var(--gray-primary); /* 変更: var(--bg-primary)→var(--gray-primary) */
+  border: 1px solid var(--border-primary);
   border-radius: 8px;
   margin-bottom: 16px;
   overflow: hidden;
+  margin-bottom: 20px;
 }
 
 summary {
-  background-color: var(--main-color);
+  background-color: var(--brand-secondary);
   padding: 12px 16px;
   cursor: pointer;
   font-weight: 500;
-  color: var(--sub-color);
+  color: var(--text-primary);
   position: relative;
   list-style: none;
   outline: none;
@@ -323,7 +345,7 @@ summary::after {
   transform: translateY(-50%) rotate(0deg);
   transition: transform 0.2s ease;
   font-size: 12px;
-  color: var(--sub-color);
+  color: var(--text-primary);
 }
 
 details[open] summary::after {
@@ -331,12 +353,12 @@ details[open] summary::after {
 }
 
 summary:hover {
-  background-color: var(--sub-color);
-  color: var(--white-color);
+  background-color: var(--brand-secondary);
+  color: var(--text-primary);
 }
 
 summary:hover::after {
-  color: var(--white-color);
+  color: var(--text-primary);
 }
 
 @media (max-width: 1250px) {
@@ -345,10 +367,10 @@ summary:hover::after {
   }
 }
 
-details > *:not(summary) {
+details>*:not(summary) {
   padding: 16px;
   margin: 0 20px 0 20px;
-  color: var(--gray-color-200);
+  color: var(--text-primary);
 }
 
 details p {

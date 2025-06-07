@@ -1,50 +1,201 @@
 :root {
-	/* フォントの種類 */
-	--normal-font-family: "Noto Sans JP", "Yu Gothic Medium", "YuGothic",
-		"ヒラギノ角ゴシック", "system-ui";
+    /* フォント */
+    --font-family: "Noto Sans JP", "Yu Gothic Medium", "YuGothic", "ヒラギノ角ゴシック", "system-ui";
 
-	/* 色 */
+    /* フォントサイズ */
+    --text-xs: 13px;
+    --text-sm: 15px;
+    --text-base: clamp(16px, 2.08vw, 18px);
+    --text-lg: clamp(20px, 2.604vw, 25px);
+    --text-xl: clamp(23px, 2.99vw, 30px);
+    --text-2xl: clamp(30px, 3.89vw, 40px);
 
-	/* main,subはブランドカラーなどに変えて構えいません。 */
-	--main-color: #b8fb97;
-	--sub-color: #4d663e;
+    /* ライトモード（デフォルト） */
+    /* ブランドカラー */
+    --brand-primary: #8bc170;
+    --brand-secondary: #4d663e;
 
-	--dark-color: #222;
+    /* 背景色 */
+    --dark-primary: #222;
+    --gray-primary: #ffffff;
+    --gray-secondary: #f8f9fa;
+    --gray-tertiary: #eceff1;
 
-	--gray-color-100: #333;
-	--gray-color-200: #444;
-	--gray-color-300: #555;
-	--gray-color-400: #eceff1;
-	--gray-color-500: #e5e7eb;
-	--white-color: #fff;
+    /* テキスト色 */
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --text-muted: #999999;
+    --white: #ffffff;
+    --dark: #222;
 
-	/* 情報色(Background) */
-	--info-color: #358cd3cc;
-	--success-color: #3c883ecc;
-	--warning-color: #d99227cc;
-	--error-color: #c03127cc;
+    /* ボーダー色 */
+    --border-primary: #e5e7eb;
+    --border-secondary: #f3f4f6;
 
-	--info-color-border: #0f92fccc;
-	--success-color-border: #30bd35cc;
-	--warning-color-border: #fa9a09cc;
-	--error-color-border: #d32013cc;
+    /* ステータス色 */
+    --status-info: #3b82f6;
+    --status-success: #10b981;
+    --status-warning: #f59e0b;
+    --status-error: #ef4444;
 
-	/* リンク色 */
-	--link-color: #1570d4;
-	--link-color-active: #7d7d7d96;
-	--link-color-visited: #a15ccc;
+    /* ステータス色（薄い版） */
+    --status-info-light: #dbeafe;
+    --status-success-light: #d1fae5;
+    --status-warning-light: #fef3c7;
+    --status-error-light: #fee2e2;
 
-	/*大きさ(上から小さい順)*/
-	--font-size-13px: 13px;
-	--font-size-15px: 15px;
-	--small-font-size: clamp(15px, 1.95vw, 17px);
-	--standard-font-size: clamp(16px, 2.08vw, 18px);
-	--small-medium-font-size: clamp(20px, 2.604vw, 25px);
-	--medium-font-size: clamp(23px, 2.99vw, 30px);
-	--large-font-size: clamp(30px, 3.89vw, 40px);
+    /* リンク色 */
+    --link-primary: #1570d4;
+    --link-active: #7d7d7d96;
+    --link-visited: #a15ccc;
 
-	/* シャドウ */
-	--soft-shadow: 0px 4px 5px -3px rgba(0, 0, 0, 0.3),
-		-1px -3px 5px -3px rgba(0, 0, 0, 0.25);
-	--standard-shadow: 0px 2px 10px -3px rgba(0, 0, 0, 0.3);
+    /* シャドウ */
+    --shadow-sm: 0px 4px 5px -3px rgba(0, 0, 0, 0.3),
+        -1px -3px 5px -3px rgba(0, 0, 0, 0.25);
+    --shadow-md: 0px 4px 8px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0px 2px 10px -3px rgba(0, 0, 0, 0.3);
+}
+
+/* ダークモード */
+[data-theme="dark"] {
+    /* ブランドカラー */
+    --brand-primary: #8bc170;
+    --brand-secondary: #6d8c5e;
+
+    /* 背景色 */
+    --gray-primary: #0f172a;
+    --gray-secondary: #1e293b;
+    --gray-tertiary: #334155;
+
+    /* テキスト色 */
+    --text-primary: #f1f5f9;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
+    /* 明示的 */
+    --white: #ffffff;
+    --dark: #222;
+
+    /* ボーダー色 */
+    --border-primary: #475569;
+    --border-secondary: #334155;
+
+    /* ステータス色 */
+    --status-info: #60a5fa;
+    --status-success: #34d399;
+    --status-warning: #fbbf24;
+    --status-error: #f87171;
+
+    /* ステータス色（薄い版） */
+    --status-info-light: #1e3a8a20;
+    --status-success-light: #14532d20;
+    --status-warning-light: #92400e20;
+    --status-error-light: #7f1d1d20;
+
+    /* リンク色 */
+    --link-primary: #60a5fa;
+    --link-hover: #93c5fd;
+    --link-visited: #c084fc;
+
+    /* シャドウ */
+    --shadow-sm: 0px 4px 5px -3px rgba(0, 0, 0, 0.3),
+        -1px -3px 5px -3px rgba(0, 0, 0, 0.25);
+    --shadow-md: 0px 4px 8px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0px 2px 10px -3px rgba(0, 0, 0, 0.3);
+}
+
+/* システムダークモード（data-theme属性がない場合） */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme]) {
+        /* ブランドカラー */
+        --brand-primary: #8bc170;
+        --brand-secondary: #6d8c5e;
+
+        /* 背景色 */
+        --gray-primary: #0f172a;
+        --gray-secondary: #1e293b;
+        --gray-tertiary: #334155;
+
+        /* テキスト色 */
+        --text-primary: #f1f5f9;
+        --text-secondary: #cbd5e1;
+        --text-muted: #94a3b8;
+        /* 明示的 */
+        --white: #ffffff;
+        --dark: #222;
+
+        /* ボーダー色 */
+        --border-primary: #475569;
+        --border-secondary: #334155;
+
+        /* ステータス色 */
+        --status-info: #60a5fa;
+        --status-success: #34d399;
+        --status-warning: #fbbf24;
+        --status-error: #f87171;
+
+        /* ステータス色（薄い版） */
+        --status-info-light: #1e3a8a20;
+        --status-success-light: #14532d20;
+        --status-warning-light: #92400e20;
+        --status-error-light: #7f1d1d20;
+
+        /* リンク色 */
+        --link-primary: #60a5fa;
+        --link-hover: #93c5fd;
+        --link-visited: #c084fc;
+
+        /* シャドウ */
+        --shadow-sm: 0px 4px 5px -3px rgba(0, 0, 0, 0.3),
+        -1px -3px 5px -3px rgba(0, 0, 0, 0.25);
+    --shadow-md: 0px 4px 8px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0px 2px 10px -3px rgba(0, 0, 0, 0.3);
+    }
+}
+
+/* 明示的ライトモード */
+[data-theme="light"] {
+    /* ブランドカラー */
+    --brand-primary: #8bc170;
+    --brand-secondary: #4d663e;
+
+    /* グレー */
+    --gray-primary: #ffffff;
+    --gray-secondary: #f8f9fa;
+    --gray-tertiary: #eceff1;
+
+    /* テキスト色 */
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --text-muted: #999999;
+
+    /* 明示的 */
+    --white: #ffffff;
+    --dark: #222;
+
+    /* ボーダー色 */
+    --border-primary: #e5e7eb;
+    --border-secondary: #f3f4f6;
+
+    /* ステータス色 */
+    --status-info: #3b82f6;
+    --status-success: #10b981;
+    --status-warning: #f59e0b;
+    --status-error: #ef4444;
+
+    /* ステータス色（薄い版） */
+    --status-info-light: #dbeafe;
+    --status-success-light: #d1fae5;
+    --status-warning-light: #fef3c7;
+    --status-error-light: #fee2e2;
+
+    /* リンク色 */
+    --link-primary: #1570d4;
+    --link-hover: #1e40af;
+    --link-visited: #a15ccc;
+
+    /* シャドウ */
+    --shadow-sm: 0px 4px 5px -3px rgba(0, 0, 0, 0.3),
+        -1px -3px 5px -3px rgba(0, 0, 0, 0.25);
+    --shadow-md: 0px 4px 8px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0px 2px 10px -3px rgba(0, 0, 0, 0.3);
 }

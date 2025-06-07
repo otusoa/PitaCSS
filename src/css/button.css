@@ -1,13 +1,12 @@
 button {
     appearance: none;
-    background-color: var(--sub-color);
-    color: var(--white-color);
+    background-color: var(--brand-secondary);
+    color: var(--gray-primary);
     border: none;
     cursor: pointer;
     outline: none;
     padding: 10px 15px;
-    text-shadow: 1px 1px 2px var(--dark-color);
-    box-shadow: var(--soft-shadow);
+    box-shadow: var(--shadow-md);
     border-radius: calc(infinity * 1px);
     transition: all 0.3s ease;
 
@@ -22,36 +21,4 @@ button {
         transform: none;
         cursor: not-allowed;
     }
-}
-
-button.info {
-    appearance: none;
-    background-color: var(--info-color);
-    border: none;
-    cursor: pointer;
-    outline: none;
-}
-
-button.success {
-    appearance: none;
-    background-color: var(--success-color);
-    border: none;
-    cursor: pointer;
-    outline: none;
-}
-
-button.warning {
-    appearance: none;
-    background-color: var(--warning-color);
-    border: none;
-    cursor: pointer;
-    outline: none;
-}
-
-button.error {
-    appearance: none;
-    background-color: var(--error-color);
-    border: none;
-    cursor: pointer;
-    outline: none;
 }

@@ -2,13 +2,20 @@
     display: flex;
     flex-direction: row;
     min-height: 100svh;
-    color: var(--grayColor100, #333);
-    background-color: var(--grayColor1000, #ECEFF1);
+    color: var(--text-primary);
+    background-color: var(--gray-tertiary); 
+
+    &.left{
+        flex-direction: row;
+    }
+    &.right {
+        flex-direction: row-reverse;
+    }
 }
 
 main {
     flex: 1;
-    background-color: var(--grayColor1000, #ECEFF1);
+    background-color: var(--gray-tertiary); 
     min-height: calc(100svh - 72px);
     min-width: 0;
     max-width: 768px;

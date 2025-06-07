@@ -1,9 +1,9 @@
 body {
 	padding: 0;
 	margin: 0;
-	color: var(--gray-color-100);
+	color: var(--text-primary);
 	word-break: break-word;
-	font-family: var(--normal-font-family);
+	font-family: var(--font-family);
 	font-weight: 400;
 	overflow-x: hidden;
 }
@@ -13,16 +13,16 @@ html {
 }
 
 body a {
-	color: var(--link-color);
+	color: var(--link-primary);
 	text-decoration: none;
 }
 
 body a:active {
-	color: none;
+	color: var(--link-active);
 }
 
 body a:visited {
-	color: var(--link-color-visited);
+	color: var(--link-visited);
 }
 
 body a:hover {
@@ -41,9 +41,9 @@ body a:hover {
 }
 
 ::-webkit-scrollbar-track {
-	background-color: var(--white-color);
+	background-color: var(--bg-primary);
 }
 
 ::-webkit-scrollbar-thumb {
-	background-color: var(--sub-color);
+	background-color: var(--brand-secondary);
 }

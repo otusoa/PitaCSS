@@ -2,57 +2,57 @@
     margin: 0 0 20px 0;
     padding: 10px;
     border-radius: 10px;
-    color: var(--white-color);
+    color: var(--text-primary);
 
     * {
         margin: 0;
     }
 
     &.info {
-        background-color: var(--info-color);
-        box-shadow: 0 2px 8px 0 rgba(32, 112, 208, 0.18), 0 0 0 2px #375375cc inset;
+        background-color: var(--status-info-light);
+        box-shadow: 0 2px 8px 0 rgba(32, 112, 208, 0.18), 0 0 0 2px var(--status-info) inset;
 
         &::before {
             content: "i";
             padding: 2px 4px;
-            font-size: var(--medium-font-size);
+            font-size: var(--text-xl);
             margin-right: 8px;
         }
     }
 
     &.success {
-        background-color: var(--success-color);
-        box-shadow: 0 2px 8px 0 rgba(32, 208, 80, 0.18), 0 0 0 2px #37753bcc inset;
+        background-color: var(--status-success-light);
+        box-shadow: 0 2px 8px 0 rgba(32, 208, 80, 0.18), 0 0 0 2px var(--status-success) inset;
 
         &::before {
             content: "✓";
             padding: 2px 4px;
-            font-size: var(--medium-font-size);
+            font-size: var(--text-xl);
             margin-right: 8px;
         }
     }
 
     &.warning {
-        background-color: var(--warning-color);
-        box-shadow: 0 2px 8px 0 rgba(208, 160, 32, 0.18), 0 0 0 2px #756b37cc inset;
+        background-color: var(--status-warning-light);
+        box-shadow: 0 2px 8px 0 rgba(208, 160, 32, 0.18), 0 0 0 2px var(--status-warning) inset;
         border-radius: 10px;
 
         &::before {
             content: "!";
             padding: 2px 4px;
-            font-size: var(--medium-font-size);
+            font-size: var(--text-xl);
             margin-right: 8px;
         }
     }
 
     &.error {
-        background-color: var(--error-color);
-        box-shadow: 0 2px 8px 0 rgba(208, 32, 19, 0.25), 0 0 0 2px #753b37cc inset;
+        background-color: var(--status-error-light);
+        box-shadow: 0 2px 8px 0 rgba(208, 32, 19, 0.25), 0 0 0 2px var(--status-error) inset;
 
         &::before {
             content: "×";
             padding: 2px 4px;
-            font-size: var(--medium-font-size);
+            font-size: var(--text-xl);
             margin-right: 8px;
         }
     }

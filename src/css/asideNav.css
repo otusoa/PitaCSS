@@ -1,15 +1,11 @@
-/* アサイドナビゲーション - ClassレスベースのHTML要素セレクタ */
-
-/* HTML5のaside要素をサイドナビゲーションとして使用 */
-
 aside {
     position: sticky;
     width: 280px;
     height: 100vh;
-    background-color: var(--white-color);
-    border-right: 1px solid var(--gray-color-500);
-    box-shadow: var(--standard-shadow);
-    color: var(--gray-color-100);
+    background-color: var(--gray-primary); /* 変更 */
+    border-right: 1px solid var(--border-primary);
+    box-shadow: var(--shadow-sm);
+    color: var(--text-primary);
     overflow-y: auto;
     z-index: 100;
     transition: transform 0.3s ease;
@@ -20,33 +16,18 @@ aside {
 /* ナビヘッダー部分 - aside内のdiv要素 */
 aside>.aside-header:first-child {
     padding: 20px;
-    border-bottom: 1px solid var(--gray-color-500);
-    background-color: var(--main-color);
+    border-bottom: 1px solid var(--border-primary);
+    background-color: var(--brand-primary);
 }
 
 aside>.aside-header:first-child h1,
 aside>.aside-header:first-child h2,
 aside>.aside-header:first-child h3 {
-    margin: 0;
-    font-size: var(--small-medium-font-size);
-    color: var(--gray-color-100);
+    font-size: var(--text-lg);
+    color: var(--text-primary);
     border: none;
     padding: 0;
     background: none;
-}
-
-@media screen and (max-width: 768px) {
-
-    aside>.aside-header:first-child {
-    display: none;
-}
-
-    aside>.aside-header:first-child h1,
-    aside>.aside-header:first-child h2,
-    aside>.aside-header:first-child h3 {
-        display: none;
-        /* モバイルではヘッダーを非表示 */
-    }
 }
 
 /* メニューリスト */
@@ -54,6 +35,7 @@ aside ul {
     list-style: none;
     padding: 0;
     margin: 0;
+    font-size: var(--text-sm);
 }
 
 aside li {
@@ -66,15 +48,15 @@ aside a {
     padding: 10px 15px;
     color: inherit;
     text-decoration: none;
-    border-bottom: 1px solid var(--gray-color-500);
+    border-bottom: 1px solid var(--border-primary);
     transition: all 0.1s ease;
     line-height: 1.2;
 }
 
 aside a:hover {
-    background-color: var(--gray-color-200);
+    background-color: var(--text-secondary); /* ここはお好みで--gray-secondary等も可 */
     text-decoration: none;
-    color: var(--white-color) !important;
+    color: var(--gray-primary) !important; /* 変更 */
 }
 
 aside a:visited {
@@ -82,7 +64,7 @@ aside a:visited {
 }
 
 aside a.active:hover {
-    background-color: var(--sub-color);
+    background-color: var(--brand-secondary);
     opacity: 0.9;
     color: inherit;
 }
@@ -90,7 +72,7 @@ aside a.active:hover {
 /* ネストされたメニュー */
 aside ul ul {
     padding-left: 20px;
-    background-color: var(--gray-color-400);
+    background-color: var(--border-secondary);
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.3s ease;
@@ -102,8 +84,7 @@ aside ul ul.expanded {
 
 aside ul ul a {
     padding: 10px 15px;
-    font-size: var(--small-font-size);
-    border-bottom: 1px solid var(--gray-color-500);
+    border-bottom: 1px solid var(--border-primary);
 }
 
 /* 折りたたみ可能なメニューアイテム */
@@ -119,7 +100,7 @@ aside li.has-submenu > a::after {
     top: 50%;
     transform: translateY(-50%);
     transition: transform 0.2s ease;
-    font-size: var(--small-font-size);
+    font-size: var(--text-sm);
 }
 
 aside li.has-submenu.collapsed > a::after {
@@ -156,12 +137,30 @@ aside.right {
     left: auto;
     right: 0;
     border-right: none;
-    border-left: 1px solid var(--gray-color-500);
+    border-left: 1px solid var(--border-primary);
+}
+
+@media screen and (max-width: 1250px) {
+    aside.right {
+        transform: translateX(100%);
+    }
+
+    body.nav-open aside.right {
+        transform: translateX(0);
+    }
 }
 
 @media screen and (min-width: 769px) {
     body.right-nav.nav-hidden aside.right {
         transform: translateX(100%);
+    }
+}
+
+/* 右側配置時のトグルボタン位置調整 */
+@media screen and (max-width: 1250px) {
+    body.right-nav button.nav-toggle {
+        left: auto;
+        right: 10px;
     }
 }
 
@@ -190,13 +189,13 @@ button.nav-toggle {
     top: 20px;
     left: 20px;
     z-index: 101;
-    background-color: var(--sub-color);
-    color: var(--white-color);
+    background-color: var(--brand-secondary);
+    color: var(--gray-primary); /* 変更 */
     border: none;
     padding: 10px;
     border-radius: 4px;
     cursor: pointer;
-    box-shadow: var(--soft-shadow);
+    box-shadow: var(--shadow-md);
     transition: all 0.3s ease;
 }
 
