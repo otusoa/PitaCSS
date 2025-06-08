@@ -1,3 +1,5 @@
+/* 見出し heding */
+
 h1 {
   position: relative;
   width: fit-content;
@@ -7,7 +9,7 @@ h1 {
   font-style: normal;
   line-height: 1.2;
   padding: 10px;
-  background-color: var(--gray-tertiary); /* 変更: var(--border-secondary)→var(--gray-tertiary) */
+  background-color: var(--gray-tertiary);
   border-left: 4px solid var(--brand-secondary);
   margin-bottom: 20px;
 }
@@ -37,6 +39,8 @@ h6 {
   margin-bottom: 20px;
 }
 
+/* 段落 Paragraph */
+
 p {
   width: fit-content;
   max-width: 100%;
@@ -45,6 +49,8 @@ p {
   line-height: 2.2;
   margin-bottom: 20px;
 }
+
+/* リスト List */
 
 ul,
 ol {
@@ -77,6 +83,8 @@ ol li:last-child {
   margin-bottom: 0;
 }
 
+/* 画像 Image */
+
 img {
   width: fit-content;
   max-width: 100%;
@@ -88,18 +96,22 @@ img {
   vertical-align: bottom;
 }
 
+/* 水平線 Horizontal Rule */
+
 hr {
   margin: 20px 0;
   border: none;
   border-top: 1px solid var(--brand-secondary);
 }
 
+/* テーブル Table */
+
 table {
   width: 100%;
   max-width: 100%;
   border-collapse: collapse;
   font-size: var(--text-base);
-  background: var(--gray-primary); /* 変更: var(--bg-primary)→var(--gray-primary) */
+  background: var(--gray-primary); 
   margin-bottom: 20px;
   display: table;
   table-layout: fixed;
@@ -121,7 +133,7 @@ table tr {
 
 table th,
 table td {
-  border: 1px solid var(--brand-secondary);
+  border-right: 1px solid var(--border-primary);
   padding: 10px 8px;
   text-align: left;
   display: table-cell;
@@ -131,13 +143,20 @@ table td {
   max-width: 0;
 }
 
+/* 左端・右端のセルには右ボーダーを表示しない */
+
+table th:last-child,
+table td:last-child {
+  border-right: none;
+}
+
 table th {
-  background: var(--brand-primary);
+  background: var(--gray-secondary);
   font-weight: bold;
 }
 
 table tr:nth-child(even) {
-  background: var(--gray-tertiary); /* 変更: var(--border-secondary)→var(--gray-tertiary) */
+  background: var(--gray-secondary); 
 }
 
 table>* {
@@ -175,10 +194,12 @@ table small {
   }
 }
 
+/* 引用 Blockquote */
+
 blockquote {
   margin: 0 0 20px 0;
   padding: 10px;
-  background-color: var(--gray-secondary); /* 変更: #f9f9f9→var(--gray-secondary) */
+  background-color: var(--gray-secondary);
   border-left: 4px solid var(--brand-secondary);
 
   * {
@@ -186,10 +207,12 @@ blockquote {
   }
 }
 
+/* セクション Section */
 section {
   margin: 30px 0px;
-
 }
+
+/* コード Code */
 
 code {
   background-color: var(--text-primary);
@@ -197,11 +220,12 @@ code {
   border-radius: 4px;
   font-size: var(--text-xs);
   line-height: 1.2;
-  color: var(--gray-primary); /* 変更: var(--bg-primary)→var(--gray-primary) */
+  color: var(--gray-primary);
   font-weight: 200;
   display: inline-block;
 }
 
+/* コードブロック Preformatted Text */
 pre {
   background-color: var(--text-primary);
   padding: 20px;
@@ -222,11 +246,12 @@ pre code {
   background-color: transparent;
 }
 
+/* キーボード入力 Keyboard Input */
 kbd {
   background-color: var(--text-primary);
-  color: var(--gray-primary); /* 変更: var(--bg-primary)→var(--gray-primary) */
+  color: var(--gray-primary);
   border: 1px solid var(--border-primary);
-  border-bottom: 2px solid var(--gray-tertiary); /* 変更: var(--border-secondary)→var(--gray-tertiary) */
+  border-bottom: 2px solid var(--gray-tertiary);
   border-radius: 3px;
   padding: 2px 6px;
   display: inline-block;
@@ -237,12 +262,12 @@ kbd {
   
   &:active{
     transform: translateY(1px);
-    border-bottom: 1px solid var(--gray-tertiary); /* 変更: var(--border-secondary)→var(--gray-tertiary) */
+    border-bottom: 1px solid var(--gray-tertiary);
     box-shadow: none;
   }
 }
 
-/* フォーム要素（ClassLess） */
+/* フォーム Form */
 
 input[type="submit"],
 button[type="submit"] {
@@ -307,11 +332,13 @@ select:invalid {
   box-shadow: 0 0 0 2px rgba(244, 67, 54, 0.2);
 }
 
+/* テキストの小さい要素 Small Text */
 small {
   color: var(--text-muted);
   font-size: var(--text-xs);
 }
 
+/* 詳細 Details */
 details {
   background-color: var(--gray-primary); /* 変更: var(--bg-primary)→var(--gray-primary) */
   border: 1px solid var(--border-primary);
@@ -326,7 +353,7 @@ summary {
   padding: 12px 16px;
   cursor: pointer;
   font-weight: 500;
-  color: var(--text-primary);
+  color: var(--white);
   position: relative;
   list-style: none;
   outline: none;
@@ -345,20 +372,10 @@ summary::after {
   transform: translateY(-50%) rotate(0deg);
   transition: transform 0.2s ease;
   font-size: 12px;
-  color: var(--text-primary);
 }
 
 details[open] summary::after {
   transform: translateY(-50%) rotate(180deg);
-}
-
-summary:hover {
-  background-color: var(--brand-secondary);
-  color: var(--text-primary);
-}
-
-summary:hover::after {
-  color: var(--text-primary);
 }
 
 @media (max-width: 1250px) {

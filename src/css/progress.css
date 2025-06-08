@@ -1,107 +1,106 @@
+/* プログレスバー Progress Bar */
+
 progress {
-    width: 100%;
-    height: 8px;
-    border: none;
-    background-color: var(--border-primary);
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
+  width: 100%;
+  height: 8px;
+  border: none;
+  background-color: var(--border-primary);
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
 
 /* プログレスバーの背景 */
 progress::-webkit-progress-bar {
-    background-color: var(--border-primary);
-    border-radius: 4px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset;
+  background-color: var(--border-primary);
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset;
 }
 
 /* プログレスバーの値の部分 */
 progress::-webkit-progress-value {
-    background-color: var(--brand-secondary);
-    border-radius: 4px;
-    transition: width 0.3s ease;
+  background-color: var(--brand-secondary);
+  border-radius: 4px;
+  transition: width 0.3s ease;
 }
 
 /* Firefox用のスタイル */
 progress::-moz-progress-bar {
-    background-color: var(--brand-secondary);
-    border-radius: 4px;
-    transition: width 0.3s ease;
+  background-color: var(--brand-secondary);
+  border-radius: 4px;
+  transition: width 0.3s ease;
 }
 
 /* プログレスバーの塗りつぶしアニメーション */
 @keyframes progressFill {
-    0% {
-        width: 0%;
-    }
+  0% {
+    width: 0%;
+  }
 
-    100% {
-        width: 100%;
-    }
+  100% {
+    width: 100%;
+  }
 }
 
 /* ストライプアニメーション */
 progress.stripe::-webkit-progress-value {
-    background-image: repeating-linear-gradient(
-        45deg,
-        transparent,
-        transparent 10px,
-        rgba(255, 255, 255, 0.2) 10px,
-        rgba(255, 255, 255, 0.2) 20px
-    );
-    animation: stripeMove 1s linear infinite;
+  background-image: repeating-linear-gradient(45deg,
+      transparent,
+      transparent 10px,
+      rgba(255, 255, 255, 0.2) 10px,
+      rgba(255, 255, 255, 0.2) 20px);
+  animation: stripeMove 1s linear infinite;
 }
 
 progress.stripe::-moz-progress-bar {
-    background-image: repeating-linear-gradient(
-        45deg,
-        transparent,
-        transparent 10px,
-        rgba(255, 255, 255, 0.2) 10px,
-        rgba(255, 255, 255, 0.2) 20px
-    );
-    animation: stripeMove 1s linear infinite;
+  background-image: repeating-linear-gradient(45deg,
+      transparent,
+      transparent 10px,
+      rgba(255, 255, 255, 0.2) 10px,
+      rgba(255, 255, 255, 0.2) 20px);
+  animation: stripeMove 1s linear infinite;
 }
 
 @keyframes stripeMove {
-    0% {
-        background-position: 0 0;
-    }
-    100% {
-        background-position: 28px 0;
-    }
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 28px 0;
+  }
 }
 
 /* 値が指定されていない場合の自動アニメーション */
 progress:not([value]) {
-    background: linear-gradient(90deg,
-            var(--border-primary) 0%,
-            var(--border-primary) 50%,
-            var(--brand-secondary) 50%,
-            var(--brand-secondary) 100%);
-    background-size: 200% 100%;
-    animation: indeterminateProgress 2s cubic-bezier(0.5,0,0.5,1) infinite;
+  background: linear-gradient(90deg,
+      var(--border-primary) 0%,
+      var(--border-primary) 50%,
+      var(--brand-secondary) 50%,
+      var(--brand-secondary) 100%);
+  background-size: 200% 100%;
+  animation: indeterminateProgress 2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
 }
 
 progress:not([value])::-webkit-progress-bar {
-    background: transparent;
+  background: transparent;
 }
 
 progress:not([value])::-webkit-progress-value {
-    background: transparent;
+  background: transparent;
 }
 
 progress:not([value])::-moz-progress-bar {
-    background: transparent;
+  background: transparent;
 }
 
 /* 不確定プログレスバーのアニメーション */
 @keyframes indeterminateProgress {
-    0% {
-        background-position: 200% 0;
-    }
+  0% {
+    background-position: 200% 0;
+  }
 
-    100% {
-        background-position: -200% 0;
-    }
+  100% {
+    background-position: -200% 0;
+  }
 }

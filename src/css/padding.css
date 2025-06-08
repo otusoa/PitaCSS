@@ -1,126 +1,126 @@
 /* パディング全方向 */
 .p10 {
-	padding: 10px !important;
+  padding: 10px !important;
 }
 
 .p20 {
-	padding: 20px !important;
+  padding: 20px !important;
 }
 
 .p40 {
-	padding: 40px !important;
+  padding: 40px !important;
 }
 
 .p60 {
-	padding: 60px !important;
+  padding: 60px !important;
 }
 
 /* 上方向のパディング */
 .pT10 {
-	padding-top: 10px !important;
+  padding-top: 10px !important;
 }
 
 .pT20 {
-	padding-top: 20px !important;
+  padding-top: 20px !important;
 }
 
 .pT40 {
-	padding-top: 40px !important;
+  padding-top: 40px !important;
 }
 
 .pT60 {
-	padding-top: 60px !important;
+  padding-top: 60px !important;
 }
 
 /* 右方向のパディング */
 .pR10 {
-	padding-right: 10px !important;
+  padding-right: 10px !important;
 }
 
 .pR20 {
-	padding-right: 20px !important;
+  padding-right: 20px !important;
 }
 
 .pR40 {
-	padding-right: 40px !important;
+  padding-right: 40px !important;
 }
 
 .pR60 {
-	padding-right: 60px !important;
+  padding-right: 60px !important;
 }
 
 /* 下方向のパディング */
 .pB10 {
-	padding-bottom: 10px !important;
+  padding-bottom: 10px !important;
 }
 
 .pB20 {
-	padding-bottom: 20px !important;
+  padding-bottom: 20px !important;
 }
 
 .pB40 {
-	padding-bottom: 40px !important;
+  padding-bottom: 40px !important;
 }
 
 .pB60 {
-	padding-bottom: 60px !important;
+  padding-bottom: 60px !important;
 }
 
 /* 左方向のパディング */
 .pL10 {
-	padding-left: 10px !important;
+  padding-left: 10px !important;
 }
 
 .pL20 {
-	padding-left: 20px !important;
+  padding-left: 20px !important;
 }
 
 .pL40 {
-	padding-left: 40px !important;
+  padding-left: 40px !important;
 }
 
 .pL60 {
-	padding-left: 60px !important;
+  padding-left: 60px !important;
 }
 
 /* 水平方向のパディング (左右) */
 .pX10 {
-	padding-left: 10px !important;
-	padding-right: 10px !important;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
 }
 
 .pX20 {
-	padding-left: 20px !important;
-	padding-right: 20px !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
 }
 
 .pX40 {
-	padding-left: 40px !important;
-	padding-right: 40px !important;
+  padding-left: 40px !important;
+  padding-right: 40px !important;
 }
 
 .pX60 {
-	padding-left: 60px !important;
-	padding-right: 60px !important;
+  padding-left: 60px !important;
+  padding-right: 60px !important;
 }
 
 /* 垂直方向のパディング (上下) */
 .pY10 {
-	padding-top: 10px !important;
-	padding-bottom: 10px !important;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
 }
 
 .pY20 {
-	padding-top: 20px !important;
-	padding-bottom: 20px !important;
+  padding-top: 20px !important;
+  padding-bottom: 20px !important;
 }
 
 .pY40 {
-	padding-top: 40px !important;
-	padding-bottom: 40px !important;
+  padding-top: 40px !important;
+  padding-bottom: 40px !important;
 }
 
 .pY60 {
-	padding-top: 60px !important;
-	padding-bottom: 60px !important;
+  padding-top: 60px !important;
+  padding-bottom: 60px !important;
 }

@@ -1,29 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap');
 
+/* フォントサイズクラス Font Size Class */
 .text-xs {
-    font-size: var(--text-xs);
+  font-size: var(--text-xs);
 }
 
 .text-sm {
-    font-size: var(--text-sm);
+  font-size: var(--text-sm);
 }
 
 .text-base {
-    font-size: var(--text-base);
-}
-
-.text-base {
-    font-size: var(--text-base);
+  font-size: var(--text-base);
 }
 
 .text-lg {
-    font-size: var(--text-lg);
+  font-size: var(--text-lg);
 }
 
 .text-xl {
-    font-size: var(--text-xl);
+  font-size: var(--text-xl);
 }
 
 .text-2xl {
-    font-size: var(--text-2xl);
+  font-size: var(--text-2xl);
 }

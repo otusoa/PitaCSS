@@ -1,66 +1,120 @@
 :root {
-    /* フォント */
-    --font-family: "Noto Sans JP", "Yu Gothic Medium", "YuGothic", "ヒラギノ角ゴシック", "system-ui";
+  /* フォント */
+  --font-family: "Noto Sans JP", "Yu Gothic Medium", "YuGothic", "ヒラギノ角ゴシック", "system-ui";
 
-    /* フォントサイズ */
-    --text-xs: 13px;
-    --text-sm: 15px;
-    --text-base: clamp(16px, 2.08vw, 18px);
-    --text-lg: clamp(20px, 2.604vw, 25px);
-    --text-xl: clamp(23px, 2.99vw, 30px);
-    --text-2xl: clamp(30px, 3.89vw, 40px);
+  /* フォントサイズ */
+  --text-xs: 13px;
+  --text-sm: 15px;
+  --text-base: clamp(16px, 2.08vw, 18px);
+  --text-lg: clamp(20px, 2.604vw, 25px);
+  --text-xl: clamp(23px, 2.99vw, 30px);
+  --text-2xl: clamp(30px, 3.89vw, 40px);
 
-    /* ライトモード（デフォルト） */
-    /* ブランドカラー */
-    --brand-primary: #8bc170;
-    --brand-secondary: #4d663e;
+  /* ライトモード（デフォルト） */
+  /* ブランドカラー */
+  --brand-primary-base: #8bc170;
+  --brand-primary: color-mix(in srgb, var(--brand-primary-base) 80%, transparent);
+  --brand-secondary-base: #4d663e;
+  --brand-secondary: color-mix(in srgb, var(--brand-secondary-base) 80%, transparent);
 
-    /* 背景色 */
-    --dark-primary: #222;
-    --gray-primary: #ffffff;
-    --gray-secondary: #f8f9fa;
-    --gray-tertiary: #eceff1;
+  /* 背景色 */
+  --dark-primary: #222;
+  --gray-primary: #ffffff;
+  --gray-secondary: #f8f9fa;
+  --gray-tertiary: #eceff1;
 
-    /* テキスト色 */
-    --text-primary: #333333;
-    --text-secondary: #666666;
-    --text-muted: #999999;
-    --white: #ffffff;
-    --dark: #222;
+  /* テキスト色 */
+  --text-primary: #333333;
+  --text-secondary: #666666;
+  --text-muted: #999999;
+  --white: #ffffff;
+  --dark: #222;
 
-    /* ボーダー色 */
-    --border-primary: #e5e7eb;
-    --border-secondary: #f3f4f6;
+  /* ボーダー色 */
+  --border-primary: #e5e7eb;
+  --border-secondary: #f3f4f6;
 
-    /* ステータス色 */
-    --status-info: #3b82f6;
-    --status-success: #10b981;
-    --status-warning: #f59e0b;
-    --status-error: #ef4444;
+  /* ステータス色 */
+  --status-info: #3b82f6;
+  --status-success: #10b981;
+  --status-warning: #f59e0b;
+  --status-error: #ef4444;
 
-    /* ステータス色（薄い版） */
-    --status-info-light: #dbeafe;
-    --status-success-light: #d1fae5;
-    --status-warning-light: #fef3c7;
-    --status-error-light: #fee2e2;
+  /* ステータス色（薄い版） */
+  --status-info-light: #dbeafe;
+  --status-success-light: #d1fae5;
+  --status-warning-light: #fef3c7;
+  --status-error-light: #fee2e2;
 
-    /* リンク色 */
-    --link-primary: #1570d4;
-    --link-active: #7d7d7d96;
-    --link-visited: #a15ccc;
+  /* リンク色 */
+  --link-primary: #1570d4;
+  --link-active: #7d7d7d96;
+  --link-visited: #a15ccc;
 
-    /* シャドウ */
-    --shadow-sm: 0px 4px 5px -3px rgba(0, 0, 0, 0.3),
-        -1px -3px 5px -3px rgba(0, 0, 0, 0.25);
-    --shadow-md: 0px 4px 8px rgba(0, 0, 0, 0.15);
-    --shadow-lg: 0px 2px 10px -3px rgba(0, 0, 0, 0.3);
+  /* シャドウ */
+  --shadow-sm: 0px 4px 5px -3px rgba(0, 0, 0, 0.3),
+    -1px -3px 5px -3px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0px 4px 8px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0px 2px 10px -3px rgba(0, 0, 0, 0.3);
 }
 
 /* ダークモード */
 [data-theme="dark"] {
+  /* ブランドカラー */
+  --brand-primary-base: #8bc170;
+  --brand-primary: color-mix(in srgb, var(--brand-primary-base) 80%, transparent);
+  --brand-secondary-base: #4d663e;
+  --brand-secondary: color-mix(in srgb, var(--brand-secondary-base) 80%, transparent);
+
+  /* 背景色 */
+  --gray-primary: #0f172a;
+  --gray-secondary: #1e293b;
+  --gray-tertiary: #334155;
+
+  /* テキスト色 */
+  --text-primary: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  /* 明示的 */
+  --white: #ffffff;
+  --dark: #222;
+
+  /* ボーダー色 */
+  --border-primary: #475569;
+  --border-secondary: #334155;
+
+  /* ステータス色 */
+  --status-info: #60a5fa;
+  --status-success: #34d399;
+  --status-warning: #fbbf24;
+  --status-error: #f87171;
+
+  /* ステータス色（薄い版） */
+  --status-info-light: #1e3a8a20;
+  --status-success-light: #14532d20;
+  --status-warning-light: #92400e20;
+  --status-error-light: #7f1d1d20;
+
+  /* リンク色 */
+  --link-primary: #60a5fa;
+  --link-hover: #93c5fd;
+  --link-visited: #c084fc;
+
+  /* シャドウ */
+  --shadow-sm: 0px 4px 5px -3px rgba(0, 0, 0, 0.3),
+    -1px -3px 5px -3px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0px 4px 8px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0px 2px 10px -3px rgba(0, 0, 0, 0.3);
+}
+
+/* システムダークモード（data-theme属性がない場合） */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
     /* ブランドカラー */
-    --brand-primary: #8bc170;
-    --brand-secondary: #6d8c5e;
+    --brand-primary-base: #8bc170;
+    --brand-primary: color-mix(in srgb, var(--brand-primary-base) 80%, transparent);
+    --brand-secondary-base: #4d663e;
+    --brand-secondary: color-mix(in srgb, var(--brand-secondary-base) 80%, transparent);
 
     /* 背景色 */
     --gray-primary: #0f172a;
@@ -98,104 +152,58 @@
 
     /* シャドウ */
     --shadow-sm: 0px 4px 5px -3px rgba(0, 0, 0, 0.3),
-        -1px -3px 5px -3px rgba(0, 0, 0, 0.25);
+      -1px -3px 5px -3px rgba(0, 0, 0, 0.25);
     --shadow-md: 0px 4px 8px rgba(0, 0, 0, 0.15);
     --shadow-lg: 0px 2px 10px -3px rgba(0, 0, 0, 0.3);
-}
-
-/* システムダークモード（data-theme属性がない場合） */
-@media (prefers-color-scheme: dark) {
-    :root:not([data-theme]) {
-        /* ブランドカラー */
-        --brand-primary: #8bc170;
-        --brand-secondary: #6d8c5e;
-
-        /* 背景色 */
-        --gray-primary: #0f172a;
-        --gray-secondary: #1e293b;
-        --gray-tertiary: #334155;
-
-        /* テキスト色 */
-        --text-primary: #f1f5f9;
-        --text-secondary: #cbd5e1;
-        --text-muted: #94a3b8;
-        /* 明示的 */
-        --white: #ffffff;
-        --dark: #222;
-
-        /* ボーダー色 */
-        --border-primary: #475569;
-        --border-secondary: #334155;
-
-        /* ステータス色 */
-        --status-info: #60a5fa;
-        --status-success: #34d399;
-        --status-warning: #fbbf24;
-        --status-error: #f87171;
-
-        /* ステータス色（薄い版） */
-        --status-info-light: #1e3a8a20;
-        --status-success-light: #14532d20;
-        --status-warning-light: #92400e20;
-        --status-error-light: #7f1d1d20;
-
-        /* リンク色 */
-        --link-primary: #60a5fa;
-        --link-hover: #93c5fd;
-        --link-visited: #c084fc;
-
-        /* シャドウ */
-        --shadow-sm: 0px 4px 5px -3px rgba(0, 0, 0, 0.3),
-        -1px -3px 5px -3px rgba(0, 0, 0, 0.25);
-    --shadow-md: 0px 4px 8px rgba(0, 0, 0, 0.15);
-    --shadow-lg: 0px 2px 10px -3px rgba(0, 0, 0, 0.3);
-    }
+  }
 }
 
 /* 明示的ライトモード */
 [data-theme="light"] {
-    /* ブランドカラー */
-    --brand-primary: #8bc170;
-    --brand-secondary: #4d663e;
+  /* ブランドカラー */
+  --brand-primary-base: #8bc170;
+  --brand-primary: color-mix(in srgb, var(--brand-primary-base) 80%, transparent);
+  --brand-secondary-base: #4d663e;
+  --brand-secondary: color-mix(in srgb, var(--brand-secondary-base) 80%, transparent);
 
-    /* グレー */
-    --gray-primary: #ffffff;
-    --gray-secondary: #f8f9fa;
-    --gray-tertiary: #eceff1;
+  /* グレー */
+  --gray-primary: #ffffff;
+  --gray-secondary: #f8f9fa;
+  --gray-tertiary: #eceff1;
 
-    /* テキスト色 */
-    --text-primary: #333333;
-    --text-secondary: #666666;
-    --text-muted: #999999;
+  /* テキスト色 */
+  --text-primary: #333333;
+  --text-secondary: #666666;
+  --text-muted: #999999;
 
-    /* 明示的 */
-    --white: #ffffff;
-    --dark: #222;
+  /* 明示的 */
+  --white: #ffffff;
+  --dark: #222;
 
-    /* ボーダー色 */
-    --border-primary: #e5e7eb;
-    --border-secondary: #f3f4f6;
+  /* ボーダー色 */
+  --border-primary: #e5e7eb;
+  --border-secondary: #f3f4f6;
 
-    /* ステータス色 */
-    --status-info: #3b82f6;
-    --status-success: #10b981;
-    --status-warning: #f59e0b;
-    --status-error: #ef4444;
+  /* ステータス色 */
+  --status-info: #3b82f6;
+  --status-success: #10b981;
+  --status-warning: #f59e0b;
+  --status-error: #ef4444;
 
-    /* ステータス色（薄い版） */
-    --status-info-light: #dbeafe;
-    --status-success-light: #d1fae5;
-    --status-warning-light: #fef3c7;
-    --status-error-light: #fee2e2;
+  /* ステータス色（薄い版） */
+  --status-info-light: #dbeafe;
+  --status-success-light: #d1fae5;
+  --status-warning-light: #fef3c7;
+  --status-error-light: #fee2e2;
 
-    /* リンク色 */
-    --link-primary: #1570d4;
-    --link-hover: #1e40af;
-    --link-visited: #a15ccc;
+  /* リンク色 */
+  --link-primary: #1570d4;
+  --link-hover: #1e40af;
+  --link-visited: #a15ccc;
 
-    /* シャドウ */
-    --shadow-sm: 0px 4px 5px -3px rgba(0, 0, 0, 0.3),
-        -1px -3px 5px -3px rgba(0, 0, 0, 0.25);
-    --shadow-md: 0px 4px 8px rgba(0, 0, 0, 0.15);
-    --shadow-lg: 0px 2px 10px -3px rgba(0, 0, 0, 0.3);
+  /* シャドウ */
+  --shadow-sm: 0px 4px 5px -3px rgba(0, 0, 0, 0.3),
+    -1px -3px 5px -3px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0px 4px 8px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0px 2px 10px -3px rgba(0, 0, 0, 0.3);
 }

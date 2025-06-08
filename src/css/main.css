@@ -1,37 +1,39 @@
+/* ページコンテナ Pages Container */
 .container {
-    display: flex;
-    flex-direction: row;
-    min-height: 100svh;
-    color: var(--text-primary);
-    background-color: var(--gray-tertiary); 
+  display: flex;
+  flex-direction: row;
+  min-height: 100svh;
+  color: var(--text-primary);
+  background-color: var(--gray-tertiary);
 
-    &.left{
-        flex-direction: row;
-    }
-    &.right {
-        flex-direction: row-reverse;
-    }
+  &.left {
+    flex-direction: row;
+  }
+
+  &.right {
+    flex-direction: row-reverse;
+  }
 }
 
 main {
-    flex: 1;
-    background-color: var(--gray-tertiary); 
-    min-height: calc(100svh - 72px);
-    min-width: 0;
-    max-width: 768px;
+  flex: 1;
+  background-color: var(--gray-tertiary);
+  min-height: calc(100svh - 72px);
+  min-width: 0;
+  max-width: 768px;
 
-    @media screen and (max-width: 1250px) {
-        padding: 40px 40px 0 40px;
-    }
+  @media screen and (max-width: 1250px) {
+    padding: 40px 40px 0 40px;
+  }
 }
 
 .content {
-    display: flex;
-    flex: 1;
-    min-width: 0;
-    justify-content: center;
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  justify-content: center;
 
-    @media screen and (max-width: 1250px) {
-        flex-direction: column;
-    }
+  @media screen and (max-width: 1250px) {
+    flex-direction: column;
+  }
 }
