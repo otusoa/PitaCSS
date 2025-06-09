@@ -4,8 +4,9 @@
 name: Node.js Package
 
 on:
-  release:
-    types: [created]
+  push:
+    tags:
+      - 'v*'  # v1.0.0, v1.2.3 などのタグにマッチ
 
 jobs:
   build:
