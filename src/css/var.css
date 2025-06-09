@@ -18,7 +18,6 @@
   --brand-secondary: color-mix(in srgb, var(--brand-secondary-base) 80%, transparent);
 
   /* 背景色 */
-  --dark-primary: #222;
   --gray-primary: #ffffff;
   --gray-secondary: #f8f9fa;
   --gray-tertiary: #eceff1;
@@ -27,6 +26,7 @@
   --text-primary: #333333;
   --text-secondary: #666666;
   --text-muted: #999999;
+  /* 明示的 */
   --white: #ffffff;
   --dark: #222;
 

@@ -56,7 +56,6 @@ class ProgressLoader {
                 position: fixed;
                 top: 0;
                 left: 0;
-                height: 3px;
                 z-index: 1000;
                 width: 100%;
                 border-radius: 0 !important;
@@ -71,7 +70,6 @@ class ProgressLoader {
                 position: fixed;
                 top: 0;
                 left: 0;
-                height: 3px;
                 z-index: 1000;
                 width: 100%;
                 border-radius: 0 !important;
