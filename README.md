@@ -1,5 +1,77 @@
-# Vue 3 + Vite
+※ドキュメントがある程度完成次第、npmで配布します。
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+# 概要
+ドキュメント型のサイトに特化したClassレスな思想がベースの「Classレス」、「低水準のClass」「ドキュメント型サイトにあったら嬉しいJS」が内包されたCSSフレームワークです。そこまでドキュメントにコストを割かない(割けない)ユーザーに最適です。
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+## 特徴
+PitaCSSは大まかに分類すると以下のような強みがあります。
+
+* Classレスベースだが、低水準のClassが付属しており柔軟性が高い
+* 素のままでシンプルなデザインになる
+* ライブラリ,フレームワーク非依存(バニラ)
+  * なおかつSSR,CSR(SPA)対応
+
+## PitaCSS 特徴 (簡潔版)
+
+- Classレス設計 - HTMLタグだけで美しいデザイン
+- 段階的採用 - Classレス → ユーティリティ → 高レベルクラス
+- ドキュメント特化 - 技術文書・マニュアルサイトに最適
+- フレームワーク非依存 - Vue/React/バニラJS対応
+
+### 🛠️ 機能分類
+- 変数システム (`var.css`) - カスタマイズ可能なテーマ
+- レイアウト (`main.css`) - サイドバー付きレイアウト
+- 余白 (`margin.css`, `padding.css`) - `.m20`, `.p10`など
+- 文字 (`font.css`) - `.text-xs`〜`.text-2xl`
+- ブレイクポイントやwidthセット (`width.css`) - `.w-max1250`, `.hide-max1250`など
+
+### 🎨 UIコンポーネント
+- アラート (`alert.css`) - `.alert.info/success/warning/error`
+- プログレス (Classレス) - ストライプ・不確定対応
+- ボタン(Classレス) - シンプルなボタンスタイル
+- リンク (`link.css`) - `.inherit-link`など便利な低水準のlink装飾があります。
+主役はドキュメントです。最低限のUIコンポーネントしかありません。
+
+### 🔧 JavaScript機能
+- テーマ切替 - ライト/ダーク/自動
+- サイドナビ - 自動折りたたみ・SPA対応
+- プログレスローダー - ページ読み込み表示
+
+すべてバニラJavaScriptで実装しています。
+
+### 🌏 日本語
+- フォント最適化 - 日本語フォント優先
+- 行間調整 - `line-height: 2.2`
+- レスポンシブ文字 - Clamp関数使用
+
+### 💡 開発体験
+- 直感的命名 - `.mT20`(margin-top), `.pX40`(padding左右)
+- ゼロ設定 - import後すぐ使用可能(プログレスローダーは手動で初期化(有効化)する必要があります)
+- 軽量 - 依存関係なし
+
+## 思想
+
+開発者が何もしなくても、HTMLだけで完結できる。
+
+というClassレスの思想に重きを置き、低水準Class (いわゆるユーティリティクラス)、ドキュメントサイトに必要な高度な動的な機能(JS)を足して、バランスよく内包しました。
+
+Classのレベル(段階)
+1. Classレス
+   * (`h1,p,section`等)
+2. 低水準Class (いわゆるユーティリティクラス)
+   * (`mT20`等)
+3. ハイレベルClass
+   * (`media-text,search-box,alert`等)
+
+これらのClassレベルを必要に応じて段階的に使い分けることで、シンプルかつ直感的に使用できます。
+
+### 直感的に分かりやすい命名規則
+
+そもそも元のCSSがシンプルなため、命名もシンプルです。
+
+### ブレイクポイント(珍しいかもしれませんが、タブレット→スマホの順番で尊重します)
+iPadなどのタブレットにも対応するため、基本的にブレイクポイントは1250pxです。
+また、多くの場合ドキュメントを読むのは**スマホ**ではなく**「タブレットやPC」**です。そこも考慮しました。
+
+### 日本語でも見やすく
+Clamp関数を使いレスポンシブ化や`line-height`を日本語向けにしました。日本語でも見やすいドキュメントテーションを作れます。
