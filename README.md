@@ -2,8 +2,8 @@
 npm install pita-css
 ```
 
-# wiki (ドキュメント)
-[https://github.com/otusoa/PitaCSS/wiki](https://github.com/otusoa/PitaCSS/wiki)
+# website (ドキュメント)
+[https://css.pitahex.com/](https://css.pitahex.com/)
 
 # 概要
 ドキュメント型のサイトに特化したClassレスな思想がベースの「Classレス」、「低水準のClass」「ドキュメント型サイトにあったら嬉しいJS」が内包されたCSSフレームワークです。そこまでドキュメントにコストを割かない(割けない)ユーザーに最適です。

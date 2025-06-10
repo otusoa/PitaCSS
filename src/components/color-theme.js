@@ -281,14 +281,27 @@ class ThemeToggle {
   }
 }
 
-// 自動初期化
+// 自動初期化の改良版（無効化対応）
 if (typeof window !== 'undefined' && typeof document !== 'undefined') {
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-      window.pitaTheme = new ThemeToggle();
-    });
-  } else {
-    window.pitaTheme = new ThemeToggle();
+  // 自動初期化フラグ（オプション）
+  const autoInit = typeof window !== 'undefined' &&
+    window.pitaCSS?.themeToggle?.autoInit !== false;
+
+  // 既に無効化されている場合はスキップ
+  if (window.pitaTheme?.disabled || !autoInit) {
+    // 何もしない
+  } else if (!window.pitaTheme) {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        if (!window.pitaTheme?.disabled) {
+          window.pitaTheme = new ThemeToggle();
+        }
+      });
+    } else {
+      if (!window.pitaTheme?.disabled) {
+        window.pitaTheme = new ThemeToggle();
+      }
+    }
   }
 }
 

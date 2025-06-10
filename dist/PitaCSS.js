@@ -4,6 +4,7 @@ var __commonJS = (cb, mod) => function __require() {
 };
 var require_PitaCSS = __commonJS({
   "PitaCSS.js"(exports, module) {
+    var _a, _b, _c, _d;
     class ProgressLoader {
       constructor(options = {}) {
         if (typeof window === "undefined") return;
@@ -202,7 +203,7 @@ var require_PitaCSS = __commonJS({
       module.exports = ProgressLoader;
     }
     const AsideNav = (() => {
-      var _a, _b;
+      var _a2, _b2;
       let isInitialized = false;
       const init = () => {
         if (typeof document === "undefined") return;
@@ -256,7 +257,7 @@ var require_PitaCSS = __commonJS({
           submenu.classList.remove("expanded");
         }
       };
-      const autoInit = typeof window !== "undefined" && ((_b = (_a = window.pitaCSS) == null ? void 0 : _a.asideNav) == null ? void 0 : _b.autoInit) !== false;
+      const autoInit = typeof window !== "undefined" && ((_b2 = (_a2 = window.pitaCSS) == null ? void 0 : _a2.asideNav) == null ? void 0 : _b2.autoInit) !== false;
       if (typeof document !== "undefined" && autoInit) {
         if (document.readyState === "loading") {
           document.addEventListener("DOMContentLoaded", init);
@@ -484,12 +485,21 @@ var require_PitaCSS = __commonJS({
       }
     }
     if (typeof window !== "undefined" && typeof document !== "undefined") {
-      if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", () => {
-          window.pitaTheme = new ThemeToggle();
-        });
-      } else {
-        window.pitaTheme = new ThemeToggle();
+      const autoInit = typeof window !== "undefined" && ((_b = (_a = window.pitaCSS) == null ? void 0 : _a.themeToggle) == null ? void 0 : _b.autoInit) !== false;
+      if (((_c = window.pitaTheme) == null ? void 0 : _c.disabled) || !autoInit) ;
+      else if (!window.pitaTheme) {
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", () => {
+            var _a2;
+            if (!((_a2 = window.pitaTheme) == null ? void 0 : _a2.disabled)) {
+              window.pitaTheme = new ThemeToggle();
+            }
+          });
+        } else {
+          if (!((_d = window.pitaTheme) == null ? void 0 : _d.disabled)) {
+            window.pitaTheme = new ThemeToggle();
+          }
+        }
       }
     }
     if (typeof module !== "undefined" && module.exports) {

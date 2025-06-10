@@ -1,11 +1,12 @@
 {
   "name": "pita-css",
   "private": false,
-  "version": "0.2.11",
+  "version": "0.2.12",
+  "homepage": "https://css.pitahex.com/",
   "publishConfig": {
     "access": "public"
   },
-  "description": "シンプルなドキュメンテーション用に特化したClassレスだけど、少し便利なClassが付属しているCSSライブラリ",
+  "description": "ドキュメント型サイトに最適化されたClassレスベースのCSSフレームワークです。HTMLタグだけで見やすいデザインが完成し、必要に応じて低水準のユーティリティClassを段階的に追加できます。",
   "type": "module",
   "main": "./dist/PitaCSS.js",
   "style": "./dist/PitaCSS.css",
@@ -31,12 +32,13 @@
   },
   "keywords": [
     "css",
+    "css-framework",
     "pita-css",
     "vue",
     "docs",
-    "components"
+    "documentation"
   ],
-  "author": "PitaMai Technology",
+  "author": "PitaMai Technology / Eita Kobayashi",
   "license": "MIT",
   "dependencies": {
   },
