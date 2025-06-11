@@ -109,7 +109,7 @@ table {
   max-width: 100%;
   border-collapse: collapse;
   font-size: var(--text-base);
-  background: var(--gray-primary); 
+  background: var(--gray-primary);
   margin-bottom: 20px;
   display: table;
   table-layout: fixed;
@@ -154,7 +154,7 @@ table th {
 }
 
 table tr:nth-child(even) {
-  background: var(--gray-secondary); 
+  background: var(--gray-secondary);
 }
 
 table>* {
@@ -257,8 +257,8 @@ kbd {
   margin: 0 1px;
   white-space: nowrap;
   line-height: 1;
-  
-  &:active{
+
+  &:active {
     transform: translateY(1px);
     border-bottom: 1px solid var(--gray-tertiary);
     box-shadow: none;
@@ -338,7 +338,8 @@ small {
 
 /* 詳細 Details */
 details {
-  background-color: var(--gray-primary); /* 変更: var(--bg-primary)→var(--gray-primary) */
+  background-color: var(--gray-primary);
+  /* 変更: var(--bg-primary)→var(--gray-primary) */
   border: 1px solid var(--border-primary);
   border-radius: 8px;
   margin-bottom: 16px;
@@ -391,4 +392,32 @@ details>*:not(summary) {
 details p {
   margin: 0;
   line-height: 1.5;
+}
+
+/* フッター Footer */
+footer {
+  background-color: var(--gray-secondary);
+  border-top: 3px solid var(--brand-secondary);
+  padding: 40px 20px 20px 20px;
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  line-height: 1.8;
+
+  small {
+    display: block;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 2px solid var(--border-primary);
+    text-align: center;
+    color: var(--text-muted);
+    font-size: var(--text-xs);
+  }
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 1250px) {
+  footer {
+    padding: 30px 20px 15px 20px;
+    margin-top: 40px;
+  }
 }
