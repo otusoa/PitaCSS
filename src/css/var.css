@@ -26,6 +26,10 @@
   --text-primary: #333333;
   --text-secondary: #666666;
   --text-muted: #999999;
+  /* 逆の動きをするテキスト色 */
+  --text-primary-inverse: #f1f5f9;
+  --text-secondary-inverse: #cbd5e1;
+  --text-muted-inverse: #94a3b8;
   /* 明示的 */
   --white: #ffffff;
   --dark: #222;
@@ -75,6 +79,10 @@
   --text-primary: #f1f5f9;
   --text-secondary: #cbd5e1;
   --text-muted: #94a3b8;
+  /* 逆の動きをするテキスト色 */
+  --text-primary-inverse: #333333;
+  --text-secondary-inverse: #666666;
+  --text-muted-inverse: #999999;
   /* 明示的 */
   --white: #ffffff;
   --dark: #222;
@@ -125,6 +133,10 @@
     --text-primary: #f1f5f9;
     --text-secondary: #cbd5e1;
     --text-muted: #94a3b8;
+    /* 逆の動きをするテキスト色 */
+    --text-primary-inverse: #333333;
+    --text-secondary-inverse: #666666;
+    --text-muted-inverse: #999999;
     /* 明示的 */
     --white: #ffffff;
     --dark: #222;
@@ -175,6 +187,10 @@
   --text-primary: #333333;
   --text-secondary: #666666;
   --text-muted: #999999;
+  /* 逆の動きをするテキスト色 */
+  --text-primary-inverse: #f1f5f9;
+  --text-secondary-inverse: #cbd5e1;
+  --text-muted-inverse: #94a3b8;
 
   /* 明示的 */
   --white: #ffffff;
