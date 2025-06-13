@@ -1,7 +1,7 @@
 {
   "name": "pita-css",
   "private": false,
-  "version": "0.3.15",
+  "version": "0.3.16",
   "homepage": "https://css.pitahex.com/",
   "publishConfig": {
     "access": "public"
@@ -13,7 +13,7 @@
   "files": [
     "dist"
   ],
-  "exports": { 
+  "exports": {
     ".": {
       "import": "./dist/PitaCSS.js",
       "require": "./dist/PitaCSS.js"
@@ -40,8 +40,7 @@
   ],
   "author": "PitaMai Technology / Eita Kobayashi",
   "license": "MIT",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.3",
     "vue": "^3.5.13",
