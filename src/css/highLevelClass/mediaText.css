@@ -1,0 +1,23 @@
+/* メディアテキスト Media Text */
+.media-text {
+  display: grid;
+  grid-template-columns: 1fr 50%;
+  grid-template-rows: auto;
+  gap: 20px;
+  justify-items: start;
+
+  img {
+    max-width: 100%;
+    margin: auto;
+    min-height: auto;
+    height: auto;
+    max-height: 300px;
+  }
+}
+
+@media (max-width: 1250px) {
+  .media-text {
+    grid-template-rows: 2 1fr;
+    grid-template-columns: none;
+  }
+}

@@ -169,7 +169,7 @@ table small {
 }
 
 /* 768px以下でテーブルに横スクロールを適用 */
-@media (max-width: 768px) {
+@media (max-width: 1250px) {
   table {
     display: block;
     width: 100%;
@@ -339,7 +339,6 @@ small {
 /* 詳細 Details */
 details {
   background-color: var(--gray-primary);
-  /* 変更: var(--bg-primary)→var(--gray-primary) */
   border: 1px solid var(--border-primary);
   border-radius: 8px;
   margin-bottom: 16px;
@@ -394,6 +393,33 @@ details p {
   line-height: 1.5;
 }
 
+/* ボタン button */
+
+button {
+  appearance: none;
+  background-color: var(--brand-secondary);
+  color: var(--gray-primary);
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 10px 15px;
+  box-shadow: var(--shadow-md);
+  border-radius: calc(infinity * 1px);
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    transform: none;
+    cursor: not-allowed;
+  }
+}
+
 /* フッター Footer */
 footer {
   background-color: var(--gray-secondary);
@@ -411,13 +437,5 @@ footer {
     text-align: center;
     color: var(--text-muted);
     font-size: var(--text-xs);
-  }
-}
-
-/* レスポンシブ対応 */
-@media (max-width: 1250px) {
-  footer {
-    padding: 30px 20px 15px 20px;
-    margin-top: 40px;
   }
 }
