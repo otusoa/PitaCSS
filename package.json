@@ -1,7 +1,7 @@
 {
   "name": "pita-css",
   "private": false,
-  "version": "0.3.16",
+  "version": "0.3.17",
   "homepage": "https://css.pitahex.com/",
   "publishConfig": {
     "access": "public"
