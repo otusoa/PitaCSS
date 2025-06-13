@@ -3,7 +3,6 @@ aside {
   width: 280px;
   height: 100svh;
   background-color: var(--gray-primary);
-  /* 変更 */
   border-right: 1px solid var(--border-primary);
   box-shadow: var(--shadow-sm);
   color: var(--text-primary);
@@ -56,10 +55,8 @@ aside a {
 
 aside a:hover {
   background-color: var(--text-secondary);
-  /* ここはお好みで--gray-secondary等も可 */
   text-decoration: none;
   color: var(--gray-primary) !important;
-  /* 変更 */
 }
 
 aside a:visited {
@@ -189,7 +186,6 @@ button.nav-toggle {
   z-index: 101;
   background-color: var(--brand-secondary);
   color: var(--gray-primary);
-  /* 変更 */
   border: none;
   padding: 10px;
   border-radius: 4px;

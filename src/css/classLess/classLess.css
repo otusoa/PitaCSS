@@ -1,4 +1,4 @@
-/* 見出し heding */
+/* 見出し heading */
 
 h1 {
   position: relative;
@@ -168,7 +168,7 @@ table small {
   display: block;
 }
 
-/* 768px以下でテーブルに横スクロールを適用 */
+/* 1250px以下でテーブルに横スクロールを適用 */
 @media (max-width: 1250px) {
   table {
     display: block;
@@ -241,6 +241,7 @@ pre code {
   display: block;
   min-width: 0;
   width: 100%;
+  color: var(--text-primary);
   background-color: transparent;
 }
 
