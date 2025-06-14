@@ -187,7 +187,6 @@ table small {
 
   table th,
   table td {
-    white-space: nowrap;
     min-width: 120px;
   }
 }

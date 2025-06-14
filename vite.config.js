@@ -10,7 +10,7 @@ export default defineConfig({
       entry: path.resolve(__dirname, 'src/main.js'),
       name: 'PitaCSS',
       fileName: 'PitaCSS',
-      formats: ['es','cjs'], // 明示的に指定
+      formats: ['es'], // 明示的に指定
       assetFileNames: (assetInfo) => {
           if (assetInfo.name === 'index.css') {
             return 'PitaCSS.css'
