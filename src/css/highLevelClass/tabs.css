@@ -1,0 +1,119 @@
+/* タブコンテナ */
+.tabs {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+/* タブナビゲーション */
+.tabs-nav {
+  display: flex;
+  border-bottom: 2px solid var(--border-primary);
+  background-color: var(--gray-primary);
+  border-radius: 8px 8px 0 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  gap: 15px;
+  padding: 10px;
+}
+
+.tabs-nav::-webkit-scrollbar {
+  display: none;
+}
+
+/* タブボタン */
+.tab-button {
+  background:var(--gray-tertiary);
+  border: none;
+  padding: 12px 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  border-bottom: 3px solid transparent;
+  position: relative;
+  flex-shrink: 0;
+  min-width: fit-content;
+  appearance: none;
+
+  &:focus {
+    outline: 1px solid var(--brand-secondary);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+/* タブコンテンツコンテナ */
+.tabs-content {
+  background-color: var(--gray-primary);
+  border: 1px solid var(--border-primary);
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  min-height: 200px;
+}
+
+/* タブパネル */
+.tab-panel {
+  padding: 20px;
+  display: none;
+  animation: fadeIn 0.3s ease-in-out;
+
+  &.active {
+    display: block;
+  }
+
+  /* タブパネル内の要素のマージン調整 */
+  &>*:first-child {
+    margin-top: 0;
+  }
+
+  &>*:last-child {
+    margin-bottom: 0;
+  }
+}
+
+/* フェードインアニメーション */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* レスポンシブ対応 */
+@media screen and (max-width: 768px) {
+  .tab-button {
+    padding: 10px 16px;
+    font-size: var(--text-sm);
+    min-width: 80px;
+  }
+
+  .tab-panel {
+    padding: 16px;
+  }
+}
+
+.tab-button .tab-badge {
+  background-color: var(--status-info);
+  color: var(--white);
+  border-radius: 12px;
+  padding: 2px 6px;
+  font-size: var(--text-xs);
+  margin-left: 8px;
+  min-width: 18px;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.tab-button.active .tab-badge {
+  background-color: var(--brand-secondary);
+}

@@ -5,7 +5,6 @@ import path from 'path'
 export default defineConfig({
   plugins: [vue()],
   build: {
-    minify: false,
     lib: {
       entry: path.resolve(__dirname, 'src/main.js'),
       name: 'PitaCSS',

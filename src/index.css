@@ -1,8 +1,8 @@
 @charset "UTF-8";
 
-/* 
-! PitaCSS
-! Mit License
+/*! @preserve
+* PitaCSS
+* Mit License
 * ©2025 PitaMai Technology / Eita Kobayashi
 */
 
@@ -29,3 +29,4 @@
 @import "./css/highLevelClass/loader.css";
 @import "./css/highLevelClass/mediaText.css";
 @import "./css/highLevelClass/searchBox.css";
+@import "./css/highLevelClass/tabs.css";
