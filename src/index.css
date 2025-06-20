@@ -6,9 +6,6 @@
 * ©2025 PitaMai Technology / Eita Kobayashi
 */
 
-@import "./css/var.css";
-@import "./css/base.css";
-
 /* ClassLess */
 @import "./css/classLess/classLess.css";
 @import "./css/classLess/header.css";

@@ -20,6 +20,7 @@
     },
     "./style": "./dist/PitaCSS.css",
     "./style-scoped": "./dist/PitaCSS.scoped.css",
+    "./style-base": "./dist/PitaCSS.base.css",
     "./js": {
       "import": "./dist/PitaCSS.js",
       "require": "./dist/PitaCSS.js"
@@ -29,7 +30,8 @@
     "dev": "vite",
     "build:normal": "vite build --config vite.config.normal.js",
     "build:scoped": "vite build --config vite.config.scoped.js",
-    "build": "npm run build:normal && npm run build:scoped",
+    "build:base": "vite build --config vite.config.base.js",
+    "build": "npm run build:normal && npm run build:scoped && npm run build:base",
     "preview": "vite preview",
     "test": "echo \"No tests specified\" && exit 0"
   },
