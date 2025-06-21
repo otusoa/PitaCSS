@@ -1,6 +1,9 @@
 ```shell
 npm install pita-css
 ```
+```shell
+pnpm add pita-css
+```
 
 # website (ドキュメント)
 [https://css.pitahex.com/](https://css.pitahex.com/)
