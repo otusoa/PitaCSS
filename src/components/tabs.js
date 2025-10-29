@@ -236,8 +236,3 @@ if (typeof window !== 'undefined' && typeof document !== 'undefined' && !window.
 
 // エクスポート
 export default PitaTabs;
-
-// CommonJSエクスポート
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = PitaTabs;
-}

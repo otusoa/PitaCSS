@@ -266,8 +266,3 @@ if (typeof window !== 'undefined' && typeof document !== 'undefined' && !window.
 
 // エクスポート
 export default ProgressLoader;
-
-// CommonJSエクスポート
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = ProgressLoader;
-}

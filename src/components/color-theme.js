@@ -307,8 +307,3 @@ if (typeof window !== 'undefined' && typeof document !== 'undefined') {
 
 // エクスポート
 export default ThemeToggle;
-
-// CommonJSエクスポート
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = ThemeToggle;
-}

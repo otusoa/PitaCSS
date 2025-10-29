@@ -98,6 +98,3 @@ const AsideNav = (() => {
 
 // ES6モジュールとしてエクスポート
 export { AsideNav };
-
-// CommonJSとの互換性も保持
-if (typeof module !== 'undefined') module.exports = AsideNav;
