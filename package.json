@@ -9,9 +9,11 @@
   "description": "ドキュメント型サイトに最適化されたClassレスベースのCSSフレームワークです。HTMLタグだけで見やすいデザインが完成し、必要に応じて低水準のユーティリティClassを段階的に追加できます。",
   "type": "module",
   "main": "./dist/PitaCSS.js",
+  "types": "./dist/index.d.ts",
   "style": "./dist/PitaCSS.css",
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "exports": {
     ".": {
@@ -22,6 +24,11 @@
     "./style-scoped": "./dist/PitaCSS.scoped.css",
     "./style-base": "./dist/PitaCSS.base.css",
     "./js": {
+      "import": "./dist/PitaCSS.js",
+      "require": "./dist/PitaCSS.js"
+    },
+    "./ts": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/PitaCSS.js",
       "require": "./dist/PitaCSS.js"
     }
@@ -49,7 +56,9 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.1",
     "postcss-prefix-selector": "^2.1.1",
-    "vite": "^7.0.6",
-    "vue": "^3.5.18"
+    "typescript": "^5.8.2",
+    "vite": "^7.1.12",
+    "vite-plugin-dts": "^4.5.4",
+    "vue": "^3.5.22"
   }
 }

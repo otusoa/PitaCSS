@@ -1,5 +1,0 @@
-import './index.css'
-import './components/progress'
-import './components/asideNav'
-import './components/color-theme'
-import './components/tabs'
