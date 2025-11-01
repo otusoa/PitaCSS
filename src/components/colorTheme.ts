@@ -1,46 +1,79 @@
-/**
- * PitaCSS Theme Toggle Utility
- * ダークモード/ライトモードの切り替え機能
- * 
- * 対応するCSS変数:
- * - :root (デフォルトライト)
- * - [data-theme="dark"] (明示的ダーク)
- * - [data-theme="light"] (明示的ライト)  
- * - @media (prefers-color-scheme: dark) :root:not([data-theme]) (システムダーク)
- */
+type Theme = 'light' | 'dark' | 'auto';
+
+interface ThemeToggleResolvedOptions {
+  storageKey: string;
+  defaultTheme: Theme;
+  toggleButtonSelector: string;
+  selectSelector: string;
+  enableTransition: boolean;
+  transitionDuration: string;
+}
+
+export interface ThemeToggleOptions {
+  storageKey?: string;
+  defaultTheme?: Theme;
+  toggleButtonSelector?: string;
+  selectSelector?: string;
+  enableTransition?: boolean;
+  transitionDuration?: string;
+}
+
+interface ThemeToggleEventDetail {
+  theme: Theme;
+  actualTheme: Exclude<Theme, 'auto'>;
+  cssVariables: Record<string, string>;
+}
+
+interface PitaThemeFlag { disabled?: boolean }
+
+interface PitaCSSConfig {
+  themeToggle?: {
+    autoInit?: boolean;
+  }
+}
+
+declare global {
+  interface Window {
+    pitaCSS?: PitaCSSConfig;
+    // ランタイムでは ThemeToggle のインスタンスまたはフラグオブジェクトを入れる
+    pitaTheme?: ThemeToggle | PitaThemeFlag;
+  }
+}
+
 class ThemeToggle {
-  constructor(options = {}) {
+  private config: ThemeToggleResolvedOptions;
+  private currentTheme: Theme;
+
+  constructor(options: ThemeToggleOptions = {}) {
     this.config = {
       storageKey: 'pita-css-theme',
-      defaultTheme: 'auto', // 'light', 'dark', 'auto'
+      defaultTheme: 'auto',
       toggleButtonSelector: '[data-theme-toggle]',
-      // セレクトボックス用の新しいオプション
       selectSelector: '[data-theme-select]',
-      // 新しいオプション: アニメーション有効/無効
       enableTransition: true,
       transitionDuration: '300ms',
-      ...options
+      ...options,
     };
 
-    this.currentTheme = this.getStoredTheme() || this.config.defaultTheme;
+    const stored = this.getStoredTheme();
+    this.currentTheme = stored ?? this.config.defaultTheme;
     this.init();
   }
 
-  init() {
+  private init(): void {
     if (typeof window === 'undefined') return;
 
-    // テーマ切り替え時のトランジション設定
     if (this.config.enableTransition) {
       this.setupThemeTransition();
     }
 
     this.applyTheme(this.currentTheme);
     this.setupToggleButtons();
-    this.setupThemeSelects(); // セレクトボックスの設定を追加
+    this.setupThemeSelects();
     this.setupSystemThemeListener();
   }
 
-  setupThemeTransition() {
+  private setupThemeTransition(): void {
     if (typeof document === 'undefined') return;
 
     const style = document.createElement('style');
@@ -63,22 +96,24 @@ class ThemeToggle {
     document.head.appendChild(style);
   }
 
-  getStoredTheme() {
+  private getStoredTheme(): Theme | null {
     if (typeof localStorage === 'undefined') return null;
-    return localStorage.getItem(this.config.storageKey);
+    const v = localStorage.getItem(this.config.storageKey);
+    if (v === 'light' || v === 'dark' || v === 'auto') return v;
+    return null;
   }
 
-  setStoredTheme(theme) {
+  private setStoredTheme(theme: Theme): void {
     if (typeof localStorage === 'undefined') return;
     localStorage.setItem(this.config.storageKey, theme);
   }
 
-  getSystemTheme() {
+  private getSystemTheme(): Exclude<Theme, 'auto'> {
     if (typeof window === 'undefined') return 'light';
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   }
 
-  applyTheme(theme) {
+  private applyTheme(theme: Theme): void {
     if (typeof document === 'undefined') return;
 
     const root = document.documentElement;
@@ -87,12 +122,9 @@ class ThemeToggle {
     root.removeAttribute('data-theme');
 
     if (theme === 'auto') {
-      // autoの場合は属性を設定せず、CSSの@media (prefers-color-scheme)に任せる
-      // これにより :root:not([data-theme]) のルールが適用される
+      // auto の場合は属性未設定でメディアクエリに委譲
       this.currentTheme = 'auto';
     } else {
-      // 明示的にテーマを設定
-      // [data-theme="light"] または [data-theme="dark"] のルールが適用される
       root.setAttribute('data-theme', theme);
       this.currentTheme = theme;
     }
@@ -102,35 +134,33 @@ class ThemeToggle {
     this.dispatchThemeChangeEvent();
   }
 
-  toggle() {
-    const themes = ['light', 'dark', 'auto'];
+  public toggle(): void {
+    const themes: Theme[] = ['light', 'dark', 'auto'];
     const currentIndex = themes.indexOf(this.currentTheme);
     const nextIndex = (currentIndex + 1) % themes.length;
     this.applyTheme(themes[nextIndex]);
   }
 
-  setTheme(theme) {
-    if (['light', 'dark', 'auto'].includes(theme)) {
-      this.applyTheme(theme);
-    }
+  public setTheme(theme: Theme): void {
+    this.applyTheme(theme);
   }
 
-  setupToggleButtons() {
+  private setupToggleButtons(): void {
     if (typeof document === 'undefined') return;
 
-    const buttons = document.querySelectorAll(this.config.toggleButtonSelector);
-    buttons.forEach(button => {
+    const buttons = document.querySelectorAll<HTMLElement>(this.config.toggleButtonSelector);
+    buttons.forEach((button) => {
       button.addEventListener('click', () => this.toggle());
     });
 
     this.updateToggleButtons();
   }
 
-  setupThemeSelects() {
+  private setupThemeSelects(): void {
     if (typeof document === 'undefined') return;
 
-    const selects = document.querySelectorAll(this.config.selectSelector);
-    selects.forEach(select => {
+    const selects = document.querySelectorAll<HTMLSelectElement>(this.config.selectSelector);
+    selects.forEach((select) => {
       // セレクトボックスが空の場合、オプションを自動生成
       if (select.children.length === 0) {
         this.populateSelectOptions(select);
@@ -140,50 +170,50 @@ class ThemeToggle {
       select.value = this.currentTheme;
 
       // 変更イベントリスナーを追加
-      select.addEventListener('change', (e) => {
-        this.setTheme(e.target.value);
+      select.addEventListener('change', (e: Event) => {
+        const target = e.target as HTMLSelectElement;
+        const v = target.value;
+        const next: Theme = v === 'light' || v === 'dark' || v === 'auto' ? v : 'auto';
+        this.setTheme(next);
       });
     });
   }
 
-  populateSelectOptions(select) {
-    const options = [
+  private populateSelectOptions(select: HTMLSelectElement): void {
+    const opts: ReadonlyArray<{ value: Theme; label: string; icon: string }> = [
       { value: 'auto', label: 'システム設定', icon: '💻' },
       { value: 'light', label: 'ライト', icon: '☀️' },
-      { value: 'dark', label: 'ダーク', icon: '🌙' }
+      { value: 'dark', label: 'ダーク', icon: '🌙' },
     ];
 
     // 既存のオプションをクリア
     select.innerHTML = '';
 
-    options.forEach(option => {
+    opts.forEach((option) => {
       const optionElement = document.createElement('option');
       optionElement.value = option.value;
 
       // アイコンを含めるかどうかを判断
       const showIcon = select.dataset.showIcon !== 'false';
-      optionElement.textContent = showIcon
-        ? `${option.icon} ${option.label}`
-        : option.label;
+      optionElement.textContent = showIcon ? `${option.icon} ${option.label}` : option.label;
 
       select.appendChild(optionElement);
     });
   }
 
-  updateToggleButtons() {
+  private updateToggleButtons(): void {
     if (typeof document === 'undefined') return;
 
-    const buttons = document.querySelectorAll(this.config.toggleButtonSelector);
-    buttons.forEach(button => {
-      // ボタンのテキストや属性を更新
-      const icons = {
-        light: '☀️',
-        dark: '🌙',
-        auto: '💻'
-      };
+    const buttons = document.querySelectorAll<HTMLElement>(this.config.toggleButtonSelector);
+    const icons: Record<Theme, string> = {
+      light: '☀️',
+      dark: '🌙',
+      auto: '💻',
+    };
 
+    buttons.forEach((button) => {
       if (button.dataset.showIcon !== 'false') {
-        button.textContent = icons[this.currentTheme] || '🔄';
+        button.textContent = icons[this.currentTheme] ?? '🔄';
       }
 
       button.setAttribute('data-current-theme', this.currentTheme);
@@ -199,11 +229,11 @@ class ThemeToggle {
     this.updateThemeSelects();
   }
 
-  updateThemeSelects() {
+  private updateThemeSelects(): void {
     if (typeof document === 'undefined') return;
 
-    const selects = document.querySelectorAll(this.config.selectSelector);
-    selects.forEach(select => {
+    const selects = document.querySelectorAll<HTMLSelectElement>(this.config.selectSelector);
+    selects.forEach((select) => {
       select.value = this.currentTheme;
       select.setAttribute('data-current-theme', this.currentTheme);
 
@@ -214,16 +244,16 @@ class ThemeToggle {
     });
   }
 
-  getThemeLabel() {
-    const labels = {
+  private getThemeLabel(): string {
+    const labels: Record<Theme, string> = {
       light: 'ライト',
       dark: 'ダーク',
-      auto: 'システム設定'
+      auto: 'システム設定',
     };
-    return labels[this.currentTheme] || 'unknown';
+    return labels[this.currentTheme] ?? 'unknown';
   }
 
-  setupSystemThemeListener() {
+  private setupSystemThemeListener(): void {
     if (typeof window === 'undefined') return;
 
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
@@ -234,49 +264,60 @@ class ThemeToggle {
     });
   }
 
-  dispatchThemeChangeEvent() {
+  private dispatchThemeChangeEvent(): void {
     if (typeof window === 'undefined') return;
 
-    const actualTheme = this.currentTheme === 'auto' ? this.getSystemTheme() : this.currentTheme;
+    const actualTheme: Exclude<Theme, 'auto'> =
+      this.currentTheme === 'auto' ? this.getSystemTheme() : this.currentTheme;
 
-    window.dispatchEvent(new CustomEvent('themechange', {
-      detail: {
-        theme: this.currentTheme,
-        actualTheme: actualTheme,
-        // CSS変数の値も含める
-        cssVariables: this.getCurrentCSSVariables()
-      }
-    }));
+    const detail: ThemeToggleEventDetail = {
+      theme: this.currentTheme,
+      actualTheme,
+      cssVariables: this.getCurrentCSSVariables(),
+    };
+
+    window.dispatchEvent(new CustomEvent<ThemeToggleEventDetail>('themechange', { detail }));
   }
 
-  getCurrentCSSVariables() {
+  private getCurrentCSSVariables(): Record<string, string> {
     if (typeof window === 'undefined') return {};
 
     const computedStyles = getComputedStyle(document.documentElement);
-    const variables = {};
+    const variables: Record<string, string> = {};
 
     // 主要なCSS変数を取得
     const varNames = [
-      '--brand-primary', '--brand-secondary',
-      '--gray-primary', '--gray-secondary', '--gray-tertiary',
-      '--text-primary', '--text-secondary', '--text-muted',
-      '--border-primary', '--border-secondary',
-      '--status-info', '--status-success', '--status-warning', '--status-error',
-      '--link-primary', '--link-hover', '--link-visited'
-    ];
+      '--brand-primary',
+      '--brand-secondary',
+      '--gray-primary',
+      '--gray-secondary',
+      '--gray-tertiary',
+      '--text-primary',
+      '--text-secondary',
+      '--text-muted',
+      '--border-primary',
+      '--border-secondary',
+      '--status-info',
+      '--status-success',
+      '--status-warning',
+      '--status-error',
+      '--link-primary',
+      '--link-hover',
+      '--link-visited',
+    ] as const;
 
-    varNames.forEach(varName => {
+    varNames.forEach((varName) => {
       variables[varName] = computedStyles.getPropertyValue(varName).trim();
     });
 
     return variables;
   }
 
-  getCurrentTheme() {
+  public getCurrentTheme(): Theme {
     return this.currentTheme;
   }
 
-  getActualTheme() {
+  public getActualTheme(): Exclude<Theme, 'auto'> {
     return this.currentTheme === 'auto' ? this.getSystemTheme() : this.currentTheme;
   }
 }
@@ -284,26 +325,34 @@ class ThemeToggle {
 // 自動初期化の改良版（無効化対応）
 if (typeof window !== 'undefined' && typeof document !== 'undefined') {
   // 自動初期化フラグ（オプション）
-  const autoInit = typeof window !== 'undefined' &&
-    window.pitaCSS?.themeToggle?.autoInit !== false;
+  const autoInit = typeof window !== 'undefined' && window.pitaCSS?.themeToggle?.autoInit !== false;
 
   // 既に無効化されている場合はスキップ
-  if (window.pitaTheme?.disabled || !autoInit) {
+  const disabled = typeof window.pitaTheme === 'object' && 'disabled' in (window.pitaTheme as PitaThemeFlag)
+    ? Boolean((window.pitaTheme as PitaThemeFlag).disabled)
+    : false;
+
+  if (disabled || !autoInit) {
     // 何もしない
   } else if (!window.pitaTheme) {
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', () => {
-        if (!window.pitaTheme?.disabled) {
+        const disabledLate = typeof window.pitaTheme === 'object' && 'disabled' in (window.pitaTheme as PitaThemeFlag)
+          ? Boolean((window.pitaTheme as PitaThemeFlag).disabled)
+          : false;
+        if (!disabledLate) {
           window.pitaTheme = new ThemeToggle();
         }
       });
     } else {
-      if (!window.pitaTheme?.disabled) {
+      const disabledLate = typeof window.pitaTheme === 'object' && 'disabled' in (window.pitaTheme as PitaThemeFlag)
+        ? Boolean((window.pitaTheme as PitaThemeFlag).disabled)
+        : false;
+      if (!disabledLate) {
         window.pitaTheme = new ThemeToggle();
       }
     }
   }
 }
 
-// エクスポート
 export default ThemeToggle;

@@ -1,10 +1,62 @@
 /**
- * PitaProgress
+ * Progress (TypeScript)
  */
+
+interface ProgressLoaderConfig {
+  minDuration: number;
+  estimatedDuration: number;
+  height: string; // CSS length
+  color: string; // CSS color
+  zIndex: number;
+  animationSpeed: number; // ms interval
+}
+
+export interface ProgressLoaderOptions {
+  minDuration?: number;
+  estimatedDuration?: number;
+  height?: string;
+  color?: string;
+  zIndex?: number;
+  animationSpeed?: number;
+}
+
+declare global {
+  interface Window {
+    progressLoader?: ProgressLoader;
+  }
+}
+
 class ProgressLoader {
-  constructor(options = {}) {
+  private config: ProgressLoaderConfig;
+  private isLoading: boolean;
+  private progressValue: number;
+  private loadingStart: number;
+  private progressInterval: number | null;
+  private finalInterval: number | null;
+  private hideTimeout: number | null;
+  private progressElement: HTMLProgressElement | null;
+
+  constructor(options: ProgressLoaderOptions = {}) {
     // ブラウザ環境でない場合は何もしない
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined') {
+      // 型上必要な初期化（実行時は早期 return）
+      this.config = {
+        minDuration: 800,
+        estimatedDuration: 2000,
+        height: '3px',
+        color: '#007bff',
+        zIndex: 1000,
+        animationSpeed: 16
+      };
+      this.isLoading = false;
+      this.progressValue = 0;
+      this.loadingStart = 0;
+      this.progressInterval = null;
+      this.finalInterval = null;
+      this.hideTimeout = null;
+      this.progressElement = null;
+      return;
+    }
 
     this.config = {
       minDuration: 800,
@@ -13,7 +65,7 @@ class ProgressLoader {
       color: '#007bff',
       zIndex: 1000,
       animationSpeed: 16,
-      ...options
+      ...options,
     };
 
     this.isLoading = false;
@@ -27,7 +79,7 @@ class ProgressLoader {
     this.init();
   }
 
-  init() {
+  private init(): void {
     // ブラウザ環境でない場合は何もしない
     if (typeof document === 'undefined') return;
 
@@ -40,11 +92,12 @@ class ProgressLoader {
     });
   }
 
-  createProgressElement() {
+  private createProgressElement(): void {
     if (typeof document === 'undefined') return;
 
     // 既存の#progressエレメントを探す
-    this.progressElement = document.getElementById('progress');
+    const existing = document.getElementById('progress');
+    this.progressElement = existing as HTMLProgressElement | null;
 
     if (!this.progressElement) {
       // 既存の要素がない場合は新規作成
@@ -56,7 +109,7 @@ class ProgressLoader {
                 position: fixed;
                 top: 0;
                 left: 0;
-                z-index: 1000;
+                z-index: ${this.config.zIndex};
                 width: 100%;
                 border-radius: 0 !important;
                 display: none;
@@ -70,32 +123,43 @@ class ProgressLoader {
                 position: fixed;
                 top: 0;
                 left: 0;
-                z-index: 1000;
+                z-index: ${this.config.zIndex};
                 width: 100%;
                 border-radius: 0 !important;
                 transition: opacity 0.3s ease;
             `;
     }
+
+    // オプション（height/color/zIndex）をスタイルへ反映
+    if (this.progressElement) {
+      // 高さ
+      this.progressElement.style.height = this.config.height;
+      // 色（対応ブラウザでは progress の色付けに使用）
+      this.progressElement.style.setProperty('accent-color', this.config.color);
+      // 念のため z-index も直接反映（上の cssText で設定済みだが上書き可能に）
+      this.progressElement.style.zIndex = String(this.config.zIndex);
+    }
   }
 
-  clearIntervals() {
-    if (this.progressInterval) {
-      clearInterval(this.progressInterval);
+  private clearIntervals(): void {
+    if (this.progressInterval !== null) {
+      window.clearInterval(this.progressInterval);
       this.progressInterval = null;
     }
-    if (this.finalInterval) {
-      clearInterval(this.finalInterval);
+    if (this.finalInterval !== null) {
+      window.clearTimeout(this.finalInterval);
       this.finalInterval = null;
     }
-    if (this.hideTimeout) {
-      clearTimeout(this.hideTimeout);
+    if (this.hideTimeout !== null) {
+      window.clearTimeout(this.hideTimeout);
       this.hideTimeout = null;
     }
   }
 
-  finishLoading() {
+  private finishLoading(): void {
     // 既にローディング中でない場合は何もしない
     if (!this.isLoading) return;
+    if (!this.progressElement) return;
 
     const elapsed = Date.now() - this.loadingStart;
     const remainingTime = Math.max(0, this.config.minDuration - elapsed);
@@ -105,13 +169,14 @@ class ProgressLoader {
     this.progressValue = 100;
     this.progressElement.value = this.progressValue;
 
-    this.finalInterval = setTimeout(() => {
+    this.finalInterval = window.setTimeout(() => {
       this.isLoading = false;
       this.hideProgress();
     }, remainingTime);
   }
 
-  showProgress() {
+  private showProgress(): void {
+    if (!this.progressElement) return;
     // 既に表示中または表示処理中の場合は前回の処理をクリア
     this.clearIntervals();
 
@@ -120,43 +185,51 @@ class ProgressLoader {
     this.progressElement.style.transition = '';
 
     requestAnimationFrame(() => {
+      if (!this.progressElement) return;
       this.progressElement.style.transition = 'opacity 0.2s ease-in';
       this.progressElement.style.opacity = '1';
     });
   }
 
-  hideProgress() {
+  private hideProgress(): void {
+    if (!this.progressElement) return;
     // 既に非表示処理中の場合は何もしない
-    if (this.hideTimeout) return;
+    if (this.hideTimeout !== null) return;
 
     this.progressElement.style.transition = 'opacity 0.5s ease-out';
     this.progressElement.style.opacity = '0';
 
-    this.hideTimeout = setTimeout(() => {
+    this.hideTimeout = window.setTimeout(() => {
+      if (!this.progressElement) return;
       this.progressElement.style.display = 'none';
       this.progressElement.style.transition = '';
       this.hideTimeout = null;
     }, 500);
   }
 
-  setupNavigationHandlers() {
+  private setupNavigationHandlers(): void {
     if (typeof document === 'undefined') return;
 
-    document.addEventListener('click', (event) => {
-      const link = event.target.closest('a[href]');
+    document.addEventListener('click', (event: MouseEvent) => {
+      const target = event.target as Element | null;
+      if (!target) return;
+      const link = target.closest<HTMLAnchorElement>('a[href]');
       if (!link) return;
 
       const href = link.getAttribute('href');
+      if (!href) return;
 
       // スキップ条件
-      if (href.startsWith('http') ||
+      if (
+        href.startsWith('http') ||
         href.startsWith('//') ||
         href.startsWith('#') ||
         href.startsWith('mailto:') ||
         href.startsWith('tel:') ||
         link.hasAttribute('download') ||
         link.classList.contains('no-progress') ||
-        link.hasAttribute('data-no-progress')) {
+        link.hasAttribute('data-no-progress')
+      ) {
         return;
       }
 
@@ -181,7 +254,8 @@ class ProgressLoader {
     });
   }
 
-  startLoading() {
+  private startLoading(): void {
+    if (!this.progressElement) return;
     // 既にローディング中の場合は一旦リセット
     if (this.isLoading) {
       this.clearIntervals();
@@ -194,61 +268,64 @@ class ProgressLoader {
 
     this.showProgress();
 
-    this.progressInterval = setInterval(() => {
+    this.progressInterval = window.setInterval(() => {
+      if (!this.progressElement) return;
       const elapsed = Date.now() - this.loadingStart;
       const progress = Math.min(5 + (elapsed / this.config.estimatedDuration) * 85, 90);
       this.progressValue = progress;
       this.progressElement.value = this.progressValue;
 
-      if (progress >= 90) {
-        clearInterval(this.progressInterval);
+      if (progress >= 90 && this.progressInterval !== null) {
+        window.clearInterval(this.progressInterval);
         this.progressInterval = null;
       }
     }, this.config.animationSpeed);
   }
 
-  setupPageFinishHandler() {
+  private setupPageFinishHandler(): void {
     if (typeof document === 'undefined') return;
 
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', () => {
         if (this.isLoading) {
-          setTimeout(() => this.finishLoading(), 100);
+          window.setTimeout(() => this.finishLoading(), 100);
         }
       });
     }
 
     window.addEventListener('load', () => {
       if (this.isLoading) {
-        setTimeout(() => this.finishLoading(), 100);
+        window.setTimeout(() => this.finishLoading(), 100);
       }
     });
 
     const observer = new MutationObserver(() => {
       if (this.isLoading) {
-        setTimeout(() => this.finishLoading(), 100);
+        window.setTimeout(() => this.finishLoading(), 100);
       }
     });
 
     observer.observe(document.body, {
       childList: true,
-      subtree: true
+      subtree: true,
     });
   }
 
   // 手動制御用のパブリックメソッド
-  start() {
+  public start(): void {
     this.startLoading();
   }
 
-  finish() {
+  public finish(): void {
     this.finishLoading();
   }
 
-  destroy() {
+  public destroy(): void {
     this.clearIntervals();
-    if (this.progressElement && !document.querySelector('#progress')) {
+    if (this.progressElement) {
+      // オーナーシップが曖昧なため、そのまま DOM から除去。
       this.progressElement.remove();
+      this.progressElement = null;
     }
   }
 }

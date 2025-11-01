@@ -9,9 +9,11 @@
   "description": "ドキュメント型サイトに最適化されたClassレスベースのCSSフレームワークです。HTMLタグだけで見やすいデザインが完成し、必要に応じて低水準のユーティリティClassを段階的に追加できます。",
   "type": "module",
   "main": "./dist/PitaCSS.js",
+  "types": "./dist/index.d.ts",
   "style": "./dist/PitaCSS.css",
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "exports": {
     ".": {
@@ -22,6 +24,11 @@
     "./style-scoped": "./dist/PitaCSS.scoped.css",
     "./style-base": "./dist/PitaCSS.base.css",
     "./js": {
+      "import": "./dist/PitaCSS.js",
+      "require": "./dist/PitaCSS.js"
+    },
+    "./ts": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/PitaCSS.js",
       "require": "./dist/PitaCSS.js"
     }

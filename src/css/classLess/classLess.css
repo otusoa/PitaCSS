@@ -240,7 +240,6 @@ pre code {
   display: block;
   min-width: 0;
   width: 100%;
-  color: var(--text-primary);
   background-color: transparent;
 }
 

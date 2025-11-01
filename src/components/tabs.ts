@@ -1,38 +1,100 @@
-class PitaTabs {
-  constructor(element, options = {}) {
-    // ブラウザ環境でない場合は何もしない
-    if (typeof window === 'undefined') return;
+type TabElement = HTMLElement & { disabled?: boolean };
 
-    this.element = typeof element === 'string' ? document.querySelector(element) : element;
-    if (!this.element) return;
+interface PitaTabsResolvedOptions {
+  defaultTab: number;
+  enableKeyboard: boolean;
+  enableAnimation: boolean;
+  onTabChange?: (
+    currentIndex: number,
+    previousIndex: number,
+    context: {
+      activeTab: TabElement;
+      activePanel: HTMLElement;
+      previousTab?: TabElement;
+      previousPanel?: HTMLElement;
+    }
+  ) => void;
+  onInit?: (instance: PitaTabs) => void;
+}
+
+export interface PitaTabsOptions {
+  defaultTab?: number;
+  enableKeyboard?: boolean;
+  enableAnimation?: boolean;
+  onTabChange?: (
+    currentIndex: number,
+    previousIndex: number,
+    context: {
+      activeTab: TabElement;
+      activePanel: HTMLElement;
+      previousTab?: TabElement;
+      previousPanel?: HTMLElement;
+    }
+  ) => void;
+  onInit?: (instance: PitaTabs) => void;
+}
+
+// グローバル拡張: 要素とウィンドウにカスタムプロパティを付与
+declare global {
+  interface HTMLElement {
+    pitaTabs?: PitaTabs;
+  }
+  interface Window {
+    pitaTabs?: object;
+  }
+}
+
+class PitaTabs {
+  private element: HTMLElement | null;
+  private config: PitaTabsResolvedOptions;
+  private tabs: TabElement[] = [];
+  private panels: HTMLElement[] = [];
+  private activeIndex: number;
+
+  constructor(element: string | HTMLElement, options: PitaTabsOptions = {}) {
+    // ブラウザ環境でない場合は何もしない
+    if (typeof window === 'undefined') {
+      this.element = null;
+      // デフォルト構成を最低限用意
+      this.config = {
+        defaultTab: 0,
+        enableKeyboard: true,
+        enableAnimation: true
+      };
+      this.activeIndex = this.config.defaultTab;
+      return;
+    }
+
+    this.element = typeof element === 'string' ? document.querySelector<HTMLElement>(element) : element;
+    if (!this.element) {
+      // 要素がない場合でも内部状態を整えて終了
+      this.config = {
+        defaultTab: 0,
+        enableKeyboard: true,
+        enableAnimation: true
+      };
+      this.activeIndex = this.config.defaultTab;
+      return;
+    }
 
     this.config = {
-      // デフォルトで開くタブのインデックス
       defaultTab: 0,
-      // キーボードナビゲーションを有効にする
       enableKeyboard: true,
-      // タブ切り替え時のアニメーション
       enableAnimation: true,
-      // タブ切り替え時のコールバック
-      onTabChange: null,
-      // タブ初期化時のコールバック
-      onInit: null,
       ...options
     };
 
-    this.tabs = [];
-    this.panels = [];
     this.activeIndex = this.config.defaultTab;
 
     this.init();
   }
 
-  init() {
+  private init(): void {
     if (!this.element) return;
 
     // タブボタンとパネルを取得
-    this.tabs = Array.from(this.element.querySelectorAll('.tab-button'));
-    this.panels = Array.from(this.element.querySelectorAll('.tab-panel'));
+    this.tabs = Array.from(this.element.querySelectorAll<TabElement>('.tab-button'));
+    this.panels = Array.from(this.element.querySelectorAll<HTMLElement>('.tab-panel'));
 
     if (this.tabs.length === 0 || this.panels.length === 0) {
       console.warn('PitaTabs: タブボタンまたはパネルが見つかりません');
@@ -51,10 +113,12 @@ class PitaTabs {
     }
   }
 
-  setupEventListeners() {
+  private setupEventListeners(): void {
+    if (!this.element) return;
+
     // タブボタンのクリックイベント
     this.tabs.forEach((tab, index) => {
-      tab.addEventListener('click', (e) => {
+      tab.addEventListener('click', (e: MouseEvent) => {
         e.preventDefault();
         if (!tab.disabled) {
           this.setActiveTab(index);
@@ -64,15 +128,15 @@ class PitaTabs {
 
     // キーボードナビゲーション
     if (this.config.enableKeyboard) {
-      this.element.addEventListener('keydown', (e) => {
+      this.element.addEventListener('keydown', (e: KeyboardEvent) => {
         this.handleKeyDown(e);
       });
     }
   }
 
-  handleKeyDown(e) {
+  private handleKeyDown(e: KeyboardEvent): void {
     const focusedTab = document.activeElement;
-    const focusedIndex = this.tabs.indexOf(focusedTab);
+    const focusedIndex = this.tabs.findIndex(t => t === focusedTab);
 
     if (focusedIndex === -1) return;
 
@@ -102,7 +166,7 @@ class PitaTabs {
     this.tabs[newIndex].focus();
   }
 
-  setActiveTab(index, triggerCallback = true) {
+  public setActiveTab(index: number, triggerCallback: boolean = true): void {
     if (index < 0 || index >= this.tabs.length) return;
 
     const previousIndex = this.activeIndex;
@@ -125,6 +189,7 @@ class PitaTabs {
     if (this.config.enableAnimation && this.panels[index]) {
       this.panels[index].style.animation = 'none';
       // フォースリフロー
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
       this.panels[index].offsetHeight;
       this.panels[index].style.animation = '';
     }
@@ -141,28 +206,29 @@ class PitaTabs {
   }
 
   // パブリックメソッド
-  getActiveIndex() {
+  public getActiveIndex(): number {
     return this.activeIndex;
   }
 
-  getActiveTab() {
+  public getActiveTab(): TabElement | undefined {
     return this.tabs[this.activeIndex];
   }
 
-  getActivePanel() {
+  public getActivePanel(): HTMLElement | undefined {
     return this.panels[this.activeIndex];
   }
 
   // 特定のタブを有効/無効にする
-  setTabDisabled(index, disabled = true) {
+  public setTabDisabled(index: number, disabled: boolean = true): void {
     if (index < 0 || index >= this.tabs.length) return;
 
-    this.tabs[index].disabled = disabled;
-    this.tabs[index].setAttribute('aria-disabled', disabled ? 'true' : 'false');
+    const tab = this.tabs[index];
+    tab.disabled = disabled;
+    tab.setAttribute('aria-disabled', disabled ? 'true' : 'false');
 
     // アクティブなタブが無効化された場合、次のタブに移動
     if (disabled && index === this.activeIndex) {
-      const nextIndex = this.tabs.findIndex((tab, i) => i !== index && !tab.disabled);
+      const nextIndex = this.tabs.findIndex((t, i) => i !== index && !t.disabled);
       if (nextIndex !== -1) {
         this.setActiveTab(nextIndex);
       }
@@ -170,11 +236,11 @@ class PitaTabs {
   }
 
   // タブにバッジを追加
-  addBadge(index, text) {
+  public addBadge(index: number, text: string): void {
     if (index < 0 || index >= this.tabs.length) return;
 
     const tab = this.tabs[index];
-    let badge = tab.querySelector('.tab-badge');
+    let badge = tab.querySelector<HTMLSpanElement>('.tab-badge');
 
     if (!badge) {
       badge = document.createElement('span');
@@ -186,7 +252,7 @@ class PitaTabs {
   }
 
   // タブのバッジを削除
-  removeBadge(index) {
+  public removeBadge(index: number): void {
     if (index < 0 || index >= this.tabs.length) return;
 
     const badge = this.tabs[index].querySelector('.tab-badge');
@@ -196,7 +262,7 @@ class PitaTabs {
   }
 
   // インスタンスを破棄
-  destroy() {
+  public destroy(): void {
     // イベントリスナーは自動的にクリーンアップされる
     this.element = null;
     this.tabs = [];
@@ -205,11 +271,11 @@ class PitaTabs {
 }
 
 // 自動初期化
-const initTabs = () => {
+const initTabs = (): void => {
   if (typeof document === 'undefined') return;
 
-  const tabElements = document.querySelectorAll('.tabs');
-  tabElements.forEach(element => {
+  const tabElements = document.querySelectorAll<HTMLElement>('.tabs');
+  tabElements.forEach((element) => {
     if (!element.pitaTabs) {
       element.pitaTabs = new PitaTabs(element);
     }
@@ -234,5 +300,4 @@ if (typeof window !== 'undefined' && typeof document !== 'undefined' && !window.
   }
 }
 
-// エクスポート
 export default PitaTabs;
