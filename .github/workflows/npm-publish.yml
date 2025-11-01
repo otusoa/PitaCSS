@@ -16,6 +16,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+      - name: Install pnpm
+        run: npm install -g pnpm
       - run: pnpm install
       - run: pnpm test
       - run: pnpm run build
@@ -29,6 +31,8 @@ jobs:
         with:
           node-version: 20
           registry-url: https://registry.npmjs.org/
+      - name: Install pnpm
+        run: npm install -g pnpm
       - run: pnpm install
       - run: pnpm run build
       - run: pnpm publish
