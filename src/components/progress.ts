@@ -134,10 +134,34 @@ class ProgressLoader {
     if (this.progressElement) {
       // 高さ
       this.progressElement.style.height = this.config.height;
-      // 色（対応ブラウザでは progress の色付けに使用）
-      this.progressElement.style.setProperty('accent-color', this.config.color);
-      // 念のため z-index も直接反映（上の cssText で設定済みだが上書き可能に）
+      // フォールバックとして accent-color（疑似要素が無い/上書きされない環境向け）
+      // this.progressElement.style.setProperty('accent-color', this.config.color, 'important');
+      // 念のため z-index も直接反映
       this.progressElement.style.zIndex = String(this.config.zIndex);
+
+      // 重要: 疑似要素に色を適用（Chromium/Safari/Firefox）
+      this.applyProgressColorToPseudoElements(this.config.color);
+    }
+  }
+
+  // 追加: ブラウザ別疑似要素に色を適用するスタイルを注入（CSS変数は使わない）
+  private applyProgressColorToPseudoElements(color: string): void {
+    if (typeof document === 'undefined') return;
+    const styleId = 'pita-progress-pseudo-style';
+    let style = document.getElementById(styleId) as HTMLStyleElement | null;
+
+    const css = `
+#progress::-webkit-progress-value { background: ${color} !important; }
+#progress::-moz-progress-bar { background: ${color} !important; }
+`;
+
+    if (!style) {
+      style = document.createElement('style');
+      style.id = styleId;
+      style.appendChild(document.createTextNode(css));
+      document.head.appendChild(style);
+    } else {
+      style.textContent = css;
     }
   }
 
