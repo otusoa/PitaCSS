@@ -241,6 +241,7 @@ pre code {
   min-width: 0;
   width: 100%;
   background-color: transparent;
+  color: var(--text-primary);
 }
 
 /* キーボード入力 Keyboard Input */
