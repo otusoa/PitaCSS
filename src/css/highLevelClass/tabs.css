@@ -24,7 +24,7 @@
 .tab-button {
   background:var(--gray-tertiary);
   border: none;
-  padding: 12px 20px;
+  padding: 5px 20px;
   cursor: pointer;
   transition: all 0.3s ease;
   white-space: nowrap;
@@ -92,7 +92,7 @@
 /* レスポンシブ対応 */
 @media screen and (max-width: 768px) {
   .tab-button {
-    padding: 10px 16px;
+    padding: 3px 15px;
     font-size: var(--text-sm);
     min-width: 80px;
   }
