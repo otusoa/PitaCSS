@@ -26,15 +26,8 @@ interface ThemeToggleEventDetail {
 
 interface PitaThemeFlag { disabled?: boolean }
 
-interface PitaCSSConfig {
-  themeToggle?: {
-    autoInit?: boolean;
-  }
-}
-
 declare global {
   interface Window {
-    pitaCSS?: PitaCSSConfig;
     // ランタイムでは ThemeToggle のインスタンスまたはフラグオブジェクトを入れる
     pitaTheme?: ThemeToggle | PitaThemeFlag;
   }
@@ -322,19 +315,14 @@ class ThemeToggle {
   }
 }
 
-// 自動初期化の改良版（無効化対応）
+// 自動初期化（バニラJS用・ブラウザ環境のみ）
 if (typeof window !== 'undefined' && typeof document !== 'undefined') {
-  // 自動初期化フラグ（オプション）
-  const autoInit = typeof window !== 'undefined' && window.pitaCSS?.themeToggle?.autoInit !== false;
-
   // 既に無効化されている場合はスキップ
   const disabled = typeof window.pitaTheme === 'object' && 'disabled' in (window.pitaTheme as PitaThemeFlag)
     ? Boolean((window.pitaTheme as PitaThemeFlag).disabled)
     : false;
 
-  if (disabled || !autoInit) {
-    // 何もしない
-  } else if (!window.pitaTheme) {
+  if (!disabled && !window.pitaTheme) {
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', () => {
         const disabledLate = typeof window.pitaTheme === 'object' && 'disabled' in (window.pitaTheme as PitaThemeFlag)

@@ -1,14 +1,5 @@
 // マルチフレームワーク対応のシンプルなナビゲーション (TypeScript)
 
-declare global {
-  // 既存の PitaCSSConfig（他ファイルで宣言）に asideNav セクションを拡張
-  interface PitaCSSConfig {
-    asideNav?: {
-      autoInit?: boolean;
-    };
-  }
-}
-
 interface AsideNavHandle {
   toggleNav: () => void;
   closeNav: () => void;
@@ -29,8 +20,8 @@ const AsideNav = (() => {
 
     if (!toggle || !overlay) return;
 
-  const toggleNav = (): void => { document.body.classList.toggle('nav-open'); };
-  const closeNav = (): void => { document.body.classList.remove('nav-open'); };
+    const toggleNav = (): void => { document.body.classList.toggle('nav-open'); };
+    const closeNav = (): void => { document.body.classList.remove('nav-open'); };
 
     toggle.addEventListener('click', toggleNav);
     overlay.addEventListener('click', closeNav);
